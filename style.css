@@ -52,3 +52,30 @@
   left: 0;
   top:0;
 }
+
+/*
+#left-button {
+  text-decoration: none;
+  position: absolute;
+  left:1%;
+  background-color: #FFF;
+  color: white;
+}
+
+#right-button {
+  text-decoration: none;
+  position: absolute;
+  left: 68%;
+  background-color: #FFFF;
+  color: white;
+}
+*/
+
+.scroll-button {
+  text-decoration: none;
+  display: inline-block;
+  margin: 5px;
+  padding: 8px 16px;
+  background-color: white;
+  border-radius: 50%;
+}
