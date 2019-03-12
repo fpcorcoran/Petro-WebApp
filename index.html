@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- CSS Imports -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+    crossorigin=""/>
+
+  </head>
+
+  <body>
+    <!-- Page Banner -->
+    <div class="banner">
+      <h1 class="title" id="banner-title">This is the Banner</h1>
+    </div>
+
+    <!-- Page Sidebar -->
+    <div class="sidebar">
+      <h1 class="title" id="sidebar-title">This is the Sidebar</h1>
+
+      <div class="sidebar-child" id="command-tools">
+        This is where tools will go
+        <select name="port">
+          <option value="value1">Option1</option>
+          <option value="value2">Option2</option>
+          <option value="value3">Option3</option>
+          <option value="value4">Option4</option>
+        </select>
+      </div>
+
+      <div class="sidebar-child" id="other-tools">
+        This is where some other tools might go
+      </div>
+
+      <div class="sidebar-child" id="even-more-tools">
+        This is where even more tools might go
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div id="mapid" class="map"></div>
+
+    <!-- Bottom Bar -->
+    <div class="bottom">
+      <h1 class="title" id="bottom-title">This is the bottom</h1>
+
+    </div>
+
+    <!-- Import Leaflet JS -->
+   <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+   integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+   crossorigin=""></script>
+
+   <!-- Import Underscore JS -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js"
+   integrity="sha256-O4179En8zabOlPYBNvGp8cF0uh0vnSZpW4Q6Ul1h+8c="
+   crossorigin="anonymous"></script>
+
+   <!-- Import JQuery JS -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"
+   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+   crossorigin="anonymous"></script>
+
+   <!-- Import Main JS -->
+   <script src="main.js"></script>
+  </body>
