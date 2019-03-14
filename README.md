@@ -1,4 +1,4 @@
-# Story-Map
+# Petro-WebApp
 
 ## Goal: Design a web map to visualize petroleum imports monthly since 1986
 
