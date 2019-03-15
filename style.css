@@ -13,7 +13,8 @@
   left: 0;
   height: 50px;
   width: 100%;
-  background-color: #0000FF;
+  background-image: linear-gradient(90deg,#a90533 47%,white 50%,#004785 53%);
+  /*background-color: #0000FF;*/
 }
 .sidebar {
     position: absolute;

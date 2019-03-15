@@ -6,37 +6,54 @@ var map = L.map('mapid', {
 });
 
 //basemapURL = "http://tile.stamen.com/watercolor/{z}/{x}/{y}.jpg";
-//basemapURL = "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png";
-basemapURL = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+basemapURL = "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png";
+//basemapURL = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 
 ///Function for digesting Ports_geo.js data and creating workable JSON
-var Markers = (list) => {
-  var LatLong = [];
+var Organize = (list) => {
+  var Data = [];
   _.each(list, (obj) => {
     var city = obj.City;
     var geo = JSON.parse(obj[".geo"]).coordinates;
-    LatLong.push({"City":city,
-                  "Lat":geo[1],
-                  "Lng":geo[0]});
+    var precip = [];
+    for (year = 198601; year < 201612; year++){
+      if(obj[year.toString()] != null){
+        precip.push(obj[year.toString()]);
+      }
+    }
+    Data.push({"City":city,
+               "Precip":precip,
+               "Lat":geo[1],
+               "Lng":geo[0]});
   });
-  return LatLong;
+  return Data;
 };
 
 
-var makeMarkers = (list) => {
+var makeMarkers = (list, date) => {
   _.each(list, (obj) => {
     var cicle = L.circle([obj.Lat, obj.Lng],{
-      color: 'red',
-      fillColor: '#f03',
+      color: 'blue',
+      fillColor: '#30f',
       fillOpacity: 0.5,
-      radius: 200
-    }).bindPopup(obj.City).addTo(map);
+      radius: obj["Precip"][date]*500
+    }).bindPopup(obj.City + " - " + obj["Precip"][date].toString()).addTo(map);
   });
 };
 
 
-var latlong = Markers(Ports);
-makeMarkers(latlong);
+
+var next = document.getElementById("right-button");
+var prev = document.getElementById("left-button");
+
+var date = 0;
+
+var Data = Organize(precip);
+makeMarkers(Data, date);
+
+
+
+
 
 baseMap = L.tileLayer(basemapURL, {
   //ext: 'jpg'
