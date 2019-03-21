@@ -20,12 +20,14 @@ var Organize = (list) => {
 
 //Function for making circular markers with radius relative to precipitation
 var makeMarkers = (list, date) => {
-  _.each(list, (obj) => {
-    var cicle = L.circle([obj.Lat, obj.Lng],{
+  var mapped = _.map(list, (obj) => {
+    var circle = L.circle([obj.Lat, obj.Lng],{
       color: 'blue',
       fillColor: '#30f',
       fillOpacity: 0.5,
       radius: obj["Precip"][date]*500
     }).bindPopup(obj.City + " - " + obj["Precip"][date].toString()).addTo(map);
+    return circle;
   });
+  return mapped;
 };
