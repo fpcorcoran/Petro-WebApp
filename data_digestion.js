@@ -5,13 +5,17 @@ var Organize = (list) => {
     var city = obj.City;
     var geo = JSON.parse(obj[".geo"]).coordinates;
     var precip = [];
+    var years = [];
     for (year = 198601; year < 201612; year++){
-      if(obj[year.toString()] != null){
-        precip.push(obj[year.toString()]);
+      y = year.toString();
+      if(obj[y] != null){
+        years.push(y);
+        precip.push(obj[y]);
       }
     }
     Data.push({"City":city,
                "Precip":precip,
+               "YearMonth": years,
                "Lat":geo[1],
                "Lng":geo[0]});
   });

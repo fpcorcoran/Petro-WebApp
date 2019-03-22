@@ -23,12 +23,13 @@
       <h1 class="title" id="sidebar-title">This is the Sidebar</h1>
 
       <div class="sidebar-child" id="command-tools">
-        <span>This is where tools will go</span>
-        <select name="port">
-          <option value="value1">Option1</option>
-          <option value="value2">Option2</option>
-          <option value="value3">Option3</option>
-          <option value="value4">Option4</option>
+        <span>Skip To a Date: </span>
+        <select name="dates" id="skip-to-date">
+          <!-- option nodes appended from button_event.js with SkipTo function -->
+        </select>
+        <input type="submit" value="Go To Date" id="date-submit">
+        <span>Skip To a Port: </span>
+        <select name="ports" id="skip-to-port">
         </select>
       </div>
 

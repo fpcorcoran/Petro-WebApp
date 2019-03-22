@@ -1,3 +1,4 @@
+
 var backForth = function(next,prev,date,markers){
 
   //function for next button click
@@ -46,9 +47,40 @@ var PlayPause = function(play,pause,date,markers){
 
   pause.addEventListener("click", function(){
     clearInterval(interval);
-    markers = makeMarkers(date);
+    markers = makeMarkers(Date, date);
     _.each(markers, (marker) => {
       marker.removeFrom(map);
     });
+  });
+};
+
+var SkipTo = function(dateButton,markers){
+  //get the <select> tag for dates
+  var dropdown = document.getElementById('skip-to-date');
+  //loop through the dates for the first port (i.e. Portland, ME)
+  _.each(Data[0].YearMonth, (d) => {
+    var year = d.slice(0,4); //get the year (201601 -> 2016)
+    var month = d.slice(4,6); // get the month (201601 -> 01)
+
+    //create new <option> element
+    var selectable = document.createElement("option");
+    //combine month and year to more human readable format
+    var month_year = document.createTextNode(month+"/"+year);
+    //append the human readable date to the select tag
+    selectable.appendChild(month_year);
+    //append the <option> tag to the <select> tag
+    dropdown.appendChild(selectable);
+  });
+
+  dateButton.addEventListener("click", function(){
+    var newDate = document.getElementById("skip-to-date").value;
+    var newDate = newDate.slice(3,7)+newDate.slice(0,2);
+    var i = Data[0].YearMonth.indexOf(newDate);
+
+    _.each(markers, (marker) => {
+      marker.removeFrom(map);
+    });
+
+    markers = makeMarkers(Data, i);
   });
 };

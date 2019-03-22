@@ -21,6 +21,7 @@ var next = document.getElementById("right-button");
 var prev = document.getElementById("left-button");
 var play = document.getElementById("play");
 var pause = document.getElementById("pause");
+var dateSkip = document.getElementById("date-submit");
 
 
 //set date variable
@@ -37,3 +38,5 @@ var Data = Organize(precip);
 var markers = makeMarkers(Data, date);
 
 PlayPause(play,pause,date,markers);
+
+SkipTo(dateSkip, markers);
