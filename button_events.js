@@ -1,4 +1,6 @@
-
+/*
+The backForth function is used to control the arrow buttons and scroll the map back and forth through the months
+*/
 var backForth = function(next,prev,date,markers){
 
   //function for next button click
@@ -24,6 +26,10 @@ var backForth = function(next,prev,date,markers){
   });
 };
 
+/*
+The Playpause button is used to play the scrolling through the months as an animation and pause said animation by controlling
+the play and pause buttons
+*/
 
 var PlayPause = function(play,pause,date,markers){
   var interval;
@@ -43,8 +49,6 @@ var PlayPause = function(play,pause,date,markers){
     },400);
   });
 
-
-
   pause.addEventListener("click", function(){
     clearInterval(interval);
     markers = makeMarkers(Date, date);
@@ -53,6 +57,11 @@ var PlayPause = function(play,pause,date,markers){
     });
   });
 };
+
+/*
+the SkipTo function is used to create options in the drop down menu allowing the user to skip to any given month.
+*/
+
 
 var SkipTo = function(dateButton,markers){
   //get the <select> tag for dates
@@ -74,7 +83,7 @@ var SkipTo = function(dateButton,markers){
 
   dateButton.addEventListener("click", function(){
     var newDate = document.getElementById("skip-to-date").value;
-    var newDate = newDate.slice(3,7)+newDate.slice(0,2);
+    var newDate = newDate.slice(3,7) + newDate.slice(0,2);
     var i = Data[0].YearMonth.indexOf(newDate);
 
     _.each(markers, (marker) => {
