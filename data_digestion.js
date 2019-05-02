@@ -1,44 +1,21 @@
-
-var parse_imports = function(imports_json){
-
-  var totals={};
-
-  //list of all the years
-  var years = Object.keys(imports_json[0]);
+var cities = {"Galveston":Galveston_CNTRY_NAME};
 
 
-  var types = [];
-
-
-  //loop through years
-  _.each(years, function(y){
-    //append the import types from each year to types
-    types.push(Object.keys(imports_json[0][y]));
-  });
-
-
-
-  //get a list of all unique types in the dataset
-  var unique_types = Array.from(new Set([].concat.apply([],types)));
-
-  _.each(years, function(y){
-    _.each(unique_types, function(type){
-      if(Object.keys(imports_json[0][y]).includes(type)){
-        totals[imports_json[0][y][type]].push(imports_json[0][y]["Total"]);
-      }
-      else{
-        totals[imports_json[0][y][type]].push(0);
-      }
-    });
-  });
-
-  console.log(totals);
+var Get_TimeSeries = function(filename){
+	var all_totals = {};
+	filename.forEach(function(years){
+		Array.from(Object.keys(years)).forEach(function(y){
+			all_totals[y] = 0;
+			Object.keys(years[y]).forEach(function(countries){
+				all_totals[y] += years[y][countries]["Total"];
+			});
+		});
+	});
+	return Object.values(all_totals);
 };
 
 
-//var f = chroma.scale(['#B22222','#EEC900','#228FCF','#0000ff']).domain([0,50,150,275]);
-
-var Organize = function(list) {
+var Organize = function(list, cities) {
 
   var f = chroma.scale(['#B22222','#EEC900','#228FCF','#0000ff']).domain([0,50,150,275]);
 
@@ -46,7 +23,7 @@ var Organize = function(list) {
 
   _.each(list, function(obj) {
 
-	  var sub_obj = {};
+	var sub_obj = {};
     var city = obj.City;
     var geo = JSON.parse(obj[".geo"]).coordinates;
     var precip = [];
@@ -63,6 +40,7 @@ var Organize = function(list) {
 
     sub_obj.circle = {"City":city,
                "Precip":precip,
+			   "Imports":Get_TimeSeries(cities[city]),
                "Color": color,
                "YearMonth": years,
                "coordinates":[geo[1],geo[0]]};
@@ -71,67 +49,3 @@ var Organize = function(list) {
   });
   return Data;
 };
-
-
-/*
-///Function for digesting Ports_geo.js data and creating workable JSON
-var Organize = (list) => {
-  var Data = [];
-  _.each(list, (obj) => {
-    var city = obj.City;
-    var geo = JSON.parse(obj[".geo"]).coordinates;
-    var precip = [];
-    var years = [];
-    for (year = 198601; year < 201612; year++){
-      y = year.toString();
-      if(obj[y] != null){
-        years.push(y);
-        precip.push(obj[y]);
-      }
-    }
-    Data.push({"City":city,
-               "Precip":precip,
-               "YearMonth": years,
-               "Lat":geo[1],
-               "Lng":geo[0]});
-  });
-  return Data;
-};
-*/
-
-/*
-var makeMarkers = function(list, date){
-  //create color scale
-  var f = chroma.scale(['#B22222','#EEC900','#228FCF','#0000ff']).domain([0,50,150,275]);
-
-
-}
-*/
-
-
-//Function for making circular markers with radius relative to precipitation
-var makeMarkers = (list, date) => {
-  //create color scale
-  var f = chroma.scale(['#B22222','#EEC900','#228FCF','#0000ff']).domain([0,50,150,275]);
-  var mapped = _.map(list, (obj) => {
-
-    //get rgb color array for precipitation value from color scale
-    var rgb = f(obj["Precip"][date])["_rgb"];
-    //get hexcode from rgb array
-    var hex = chroma(rgb).hex()
-
-    var circle = L.circle([obj.Lat, obj.Lng],{
-      color: hex,
-      fillColor: hex,
-      fillOpacity: 0.5,
-      radius: obj["Precip"][date]*500
-    }).bindPopup(obj.City + " - " + obj["Precip"][date].toString()).addTo(map);
-    return circle;
-  });
-  return mapped;
-};
-
-
-//f = chroma.scale(['#B22222','#EEC900','#228FCF','#364EB9'])
-//rgb = f(obj)["_rgb"]
-//hex = chroma(rgb).hex()

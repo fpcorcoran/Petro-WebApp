@@ -109,12 +109,3 @@ var pause = document.getElementById("pause");
 //PlayPause(play,pause,date,markers);
 
 //SkipTo(dateSkip, markers);
-
-var all_totals = [];
-Galveston_CNTRY_NAME.forEach(function(years){
-	Array.from(Object.keys(years)).forEach(function(y){
-		Object.keys(years[y]).forEach(function(countries){
-			//all_totals.push(years[y][countries]["Total"]);
-		});
-	});
-});
