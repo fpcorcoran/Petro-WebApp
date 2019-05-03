@@ -1,4 +1,4 @@
-var PHILADELPHIA\_CNTRY_NAME = {
+var PHILADELPHIA_CNTRY_NAME = {
   "198601": {
     "ALGERIA": {
       "Total": 1022,
@@ -16644,7 +16644,7 @@ var PHILADELPHIA\_CNTRY_NAME = {
     }
   }
 }
-var PHILADELPHIA\_R_S_NAME = {
+var PHILADELPHIA_R_S_NAME = {
   "198601": {
     "AMERADA HESS CORP": {
       "Total": 491,
@@ -26502,7 +26502,7 @@ var PHILADELPHIA\_R_S_NAME = {
     }
   }
 }
-var PHILADELPHIA\_PROD_NAME = {
+var PHILADELPHIA_PROD_NAME = {
   "198601": {
     "CRUDE OIL": {
       "Total": 9203,

@@ -1,4 +1,4 @@
-var PORTSMOUTH\_CNTRY_NAME = {
+var PORTSMOUTH_CNTRY_NAME = {
   "198601": {
     "ALGERIA": {
       "Total": 218,
@@ -4784,7 +4784,7 @@ var PORTSMOUTH\_CNTRY_NAME = {
     }
   }
 }
-var PORTSMOUTH\_R_S_NAME = {
+var PORTSMOUTH_R_S_NAME = {
   "198601": {
     "DORCHESTER SEA-3 PROD": {
       "Total": 738,
@@ -10542,7 +10542,7 @@ var PORTSMOUTH\_R_S_NAME = {
     }
   }
 }
-var PORTSMOUTH\_PROD_NAME = {
+var PORTSMOUTH_PROD_NAME = {
   "198601": {
     "DISTILLATE FUEL, TOTAL": {
       "Total": 378,

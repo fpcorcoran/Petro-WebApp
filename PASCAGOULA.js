@@ -1,4 +1,4 @@
-var PASCAGOULA\_CNTRY_NAME = {
+var PASCAGOULA_CNTRY_NAME = {
   "198601": {
     "INDONESIA": {
       "Total": 1105,
@@ -7680,7 +7680,7 @@ var PASCAGOULA\_CNTRY_NAME = {
     }
   }
 }
-var PASCAGOULA\_R_S_NAME = {
+var PASCAGOULA_R_S_NAME = {
   "198601": {
     "CHEVRON CORP": {
       "Total": 5995,
@@ -10362,7 +10362,7 @@ var PASCAGOULA\_R_S_NAME = {
     }
   }
 }
-var PASCAGOULA\_PROD_NAME = {
+var PASCAGOULA_PROD_NAME = {
   "198601": {
     "CRUDE OIL": {
       "Total": 5995,

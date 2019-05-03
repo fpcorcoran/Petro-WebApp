@@ -1,4 +1,4 @@
-var NEW_HAVEN\_CNTRY_NAME = {
+var NEW_HAVEN_CNTRY_NAME = {
   "198601": {
     "MEXICO": {
       "Total": 346,
@@ -7438,7 +7438,7 @@ var NEW_HAVEN\_CNTRY_NAME = {
     }
   }
 }
-var NEW_HAVEN\_R_S_NAME = {
+var NEW_HAVEN_R_S_NAME = {
   "198601": {
     "GLOBAL PETRO CORP": {
       "Total": 161,
@@ -13906,7 +13906,7 @@ var NEW_HAVEN\_R_S_NAME = {
     }
   }
 }
-var NEW_HAVEN\_PROD_NAME = {
+var NEW_HAVEN_PROD_NAME = {
   "198601": {
     "DISTILLATE FUEL, TOTAL": {
       "Total": 1015,

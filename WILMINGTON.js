@@ -1,4 +1,4 @@
-var WILMINGTON\_CNTRY_NAME = {
+var WILMINGTON_CNTRY_NAME = {
   "198601": {
     "BAHAMAS": {
       "Total": 120,
@@ -5926,7 +5926,7 @@ var WILMINGTON\_CNTRY_NAME = {
     }
   }
 }
-var WILMINGTON\_R_S_NAME = {
+var WILMINGTON_R_S_NAME = {
   "198601": {
     "AMERADA HESS CORP": {
       "Total": 654,
@@ -11826,7 +11826,7 @@ var WILMINGTON\_R_S_NAME = {
     }
   }
 }
-var WILMINGTON\_PROD_NAME = {
+var WILMINGTON_PROD_NAME = {
   "198601": {
     "ASPHALT & ROAD OIL": {
       "Total": 30,

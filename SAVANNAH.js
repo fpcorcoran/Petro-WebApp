@@ -1,4 +1,4 @@
-var SAVANNAH\_CNTRY_NAME = {
+var SAVANNAH_CNTRY_NAME = {
   "198601": {
     "BAHAMAS": {
       "Total": 64,
@@ -8284,7 +8284,7 @@ var SAVANNAH\_CNTRY_NAME = {
     }
   }
 }
-var SAVANNAH\_R_S_NAME = {
+var SAVANNAH_R_S_NAME = {
   "198601": {
     "AMOCO SUPPLY": {
       "Total": 204,
@@ -15586,7 +15586,7 @@ var SAVANNAH\_R_S_NAME = {
     }
   }
 }
-var SAVANNAH\_PROD_NAME = {
+var SAVANNAH_PROD_NAME = {
   "198601": {
     "ASPHALT & ROAD OIL": {
       "Total": 31,

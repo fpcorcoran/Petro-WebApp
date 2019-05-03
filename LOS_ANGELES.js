@@ -1,4 +1,4 @@
-var LOS_ANGELES\_CNTRY_NAME = {
+var LOS_ANGELES_CNTRY_NAME = {
   "198601": {
     "INDONESIA": {
       "Total": 319,
@@ -15170,7 +15170,7 @@ var LOS_ANGELES\_CNTRY_NAME = {
     }
   }
 }
-var LOS_ANGELES\_R_S_NAME = {
+var LOS_ANGELES_R_S_NAME = {
   "198601": {
     "ASTROLINE CORP": {
       "Total": 152,
@@ -27782,7 +27782,7 @@ var LOS_ANGELES\_R_S_NAME = {
     }
   }
 }
-var LOS_ANGELES\_PROD_NAME = {
+var LOS_ANGELES_PROD_NAME = {
   "198601": {
     "CRUDE OIL": {
       "Total": 636,

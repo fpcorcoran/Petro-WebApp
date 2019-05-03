@@ -1,4 +1,4 @@
-var MIAMI\_CNTRY_NAME = {
+var MIAMI_CNTRY_NAME = {
   "198601": {
     "BAHAMAS": {
       "Total": 144,
@@ -4930,7 +4930,7 @@ var MIAMI\_CNTRY_NAME = {
     }
   }
 }
-var MIAMI\_R_S_NAME = {
+var MIAMI_R_S_NAME = {
   "198601": {
     "EASTERN AIR LINES INC": {
       "Total": 8,
@@ -8766,7 +8766,7 @@ var MIAMI\_R_S_NAME = {
     }
   }
 }
-var MIAMI\_PROD_NAME = {
+var MIAMI_PROD_NAME = {
   "198601": {
     "DISTILLATE FUEL, TOTAL": {
       "Total": 18,

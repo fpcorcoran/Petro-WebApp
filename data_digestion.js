@@ -1,4 +1,30 @@
-var cities = {"Galveston":Galveston_CNTRY_NAME};
+//FINISH ADDING CITIES
+var cities = {"Galveston":Galveston_CNTRY_NAME,
+			  "Baton Rouge":BATON_ROUGE_CNTRY_NAME,
+		  	  "Beaumont":BEAUMONT_CNTRY_NAME,
+		  	  "Boston": BOSTON_CNTRY_NAME,
+		  	  "Charleston": CHARLESTON_CNTRY_NAME,
+		  	  "Corpus Christi": CORPUS_CHRISTI_CNTRY_NAME,
+		  	  "Houston": HOUSTON_CNTRY_NAME,
+		  	  "Jacksonville": JACKSONVILLE_CNTRY_NAME,
+		      "Lake Charles": LAKE_CHARLES_CNTRY_NAME,
+		  	  "Los Angeles": LOS_ANGELES_CNTRY_NAME,
+		  	  "Miami": MIAMI_CNTRY_NAME,
+		  	  "Mobile": MOBILE_CNTRY_NAME,
+		  	  "Morgan City": MORGAN_CITY_CNTRY_NAME,
+		  	  "Newark": NEWARK_CNTRY_NAME,
+		  	  "Norfolk":NORFOLK_CNTRY_NAME,
+		  	  "Pascagoula": PASCAGOULA_CNTRY_NAME,
+			  "Philadelphia":PHILADELPIA_CNTRY_NAME,
+			  "Portland": PORTLAND_CNTRY_NAME,
+			  "Portsmouth":PORTSMOUTH_CNTRY_NAME,
+			  "Port Arthur": PORT_ARTHUR_CNTRY_NAME,
+			  "Providence": PROVIDENVE_CNTRY_NAME,
+			  "Port Canaveral": PT_CANAVERAL_CNTRY_NAME,
+			  "San Francisco": SAN_FRANCISCO_CNTRY_NAME,
+			  "Tampa": TAMPA_CNTRY_NAME,
+			  "Wilmington": WILMINGTON_CNTRY_NAME
+		  };
 
 
 var Get_TimeSeries = function(filename){
@@ -40,7 +66,7 @@ var Organize = function(list, cities) {
 
     sub_obj.circle = {"City":city,
                "Precip":precip,
-			   "Imports":Get_TimeSeries(cities[city]),
+			   //"Imports":Get_TimeSeries(cities[city]),
                "Color": color,
                "YearMonth": years,
                "coordinates":[geo[1],geo[0]]};

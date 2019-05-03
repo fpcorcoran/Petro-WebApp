@@ -1,4 +1,4 @@
-var CORPUS_CHRISTI\_CNTRY_NAME = {
+var CORPUS_CHRISTI_CNTRY_NAME = {
   "198601": {
     "ALGERIA": {
       "Total": 456,
@@ -21572,7 +21572,7 @@ var CORPUS_CHRISTI\_CNTRY_NAME = {
     }
   }
 }
-var CORPUS_CHRISTI\_R_S_NAME = {
+var CORPUS_CHRISTI_R_S_NAME = {
   "198601": {
     "ATLANTIC TRDG & MKTG INC": {
       "Total": 166,
@@ -31938,7 +31938,7 @@ var CORPUS_CHRISTI\_R_S_NAME = {
     }
   }
 }
-var CORPUS_CHRISTI\_PROD_NAME = {
+var CORPUS_CHRISTI_PROD_NAME = {
   "198601": {
     "CRUDE OIL": {
       "Total": 8388,

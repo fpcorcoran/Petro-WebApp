@@ -1,4 +1,4 @@
-var GALVESTON\_CNTRY_NAME = {
+var GALVESTON_CNTRY_NAME = {
   "198601": {
     "ALGERIA": {
       "Total": 1000,
@@ -9310,7 +9310,7 @@ var GALVESTON\_CNTRY_NAME = {
     }
   }
 }
-var GALVESTON\_R_S_NAME = {
+var GALVESTON_R_S_NAME = {
   "198601": {
     "AMOCO SUPPLY": {
       "Total": 3401,
@@ -12822,7 +12822,7 @@ var GALVESTON\_R_S_NAME = {
     }
   }
 }
-var GALVESTON\_PROD_NAME = {
+var GALVESTON_PROD_NAME = {
   "198601": {
     "CRUDE OIL": {
       "Total": 4779,

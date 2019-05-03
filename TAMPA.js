@@ -1,4 +1,4 @@
-var TAMPA\_CNTRY_NAME = {
+var TAMPA_CNTRY_NAME = {
   "198601": {
     "VENEZUELA": {
       "Total": 29,
@@ -4738,7 +4738,7 @@ var TAMPA\_CNTRY_NAME = {
     }
   }
 }
-var TAMPA\_R_S_NAME = {
+var TAMPA_R_S_NAME = {
   "198601": {
     "GAF BLDG MATERIALS CORP": {
       "Total": 29,
@@ -9058,7 +9058,7 @@ var TAMPA\_R_S_NAME = {
     }
   }
 }
-var TAMPA\_PROD_NAME = {
+var TAMPA_PROD_NAME = {
   "198601": {
     "ASPHALT & ROAD OIL": {
       "Total": 29,

@@ -1,4 +1,4 @@
-var NEW_BEDFORD\_CNTRY_NAME = {
+var NEW_BEDFORD_CNTRY_NAME = {
   "198603": {
     "VENEZUELA": {
       "Total": 14,
@@ -622,7 +622,7 @@ var NEW_BEDFORD\_CNTRY_NAME = {
     }
   }
 }
-var NEW_BEDFORD\_R_S_NAME = {
+var NEW_BEDFORD_R_S_NAME = {
   "198603": {
     "GLOBAL PETRO CORP": {
       "Total": 14,
@@ -1202,7 +1202,7 @@ var NEW_BEDFORD\_R_S_NAME = {
     }
   }
 }
-var NEW_BEDFORD\_PROD_NAME = {
+var NEW_BEDFORD_PROD_NAME = {
   "198603": {
     "DISTILLATE FUEL, TOTAL": {
       "Total": 14,

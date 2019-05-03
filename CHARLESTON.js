@@ -1,4 +1,4 @@
-var CHARLESTON\_CNTRY_NAME = {
+var CHARLESTON_CNTRY_NAME = {
   "198601": {
     "UNITED KINGDOM": {
       "Total": 1,
@@ -8134,7 +8134,7 @@ var CHARLESTON\_CNTRY_NAME = {
     }
   }
 }
-var CHARLESTON\_R_S_NAME = {
+var CHARLESTON_R_S_NAME = {
   "198601": {
     "AMERADA HESS CORP": {
       "Total": 417,
@@ -14586,7 +14586,7 @@ var CHARLESTON\_R_S_NAME = {
     }
   }
 }
-var CHARLESTON\_PROD_NAME = {
+var CHARLESTON_PROD_NAME = {
   "198601": {
     "DISTILLATE FUEL, TOTAL": {
       "Total": 15,

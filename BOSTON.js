@@ -1,4 +1,4 @@
-var BOSTON\_CNTRY_NAME = {
+var BOSTON_CNTRY_NAME = {
   "198601": {
     "ARGENTINA": {
       "Total": 180,
@@ -10644,7 +10644,7 @@ var BOSTON\_CNTRY_NAME = {
     }
   }
 }
-var BOSTON\_R_S_NAME = {
+var BOSTON_R_S_NAME = {
   "198601": {
     "BOSTON EDISON CO": {
       "Total": 345,
@@ -23190,7 +23190,7 @@ var BOSTON\_R_S_NAME = {
     }
   }
 }
-var BOSTON\_PROD_NAME = {
+var BOSTON_PROD_NAME = {
   "198601": {
     "DISTILLATE FUEL, TOTAL": {
       "Total": 2027,

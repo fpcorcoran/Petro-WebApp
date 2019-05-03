@@ -1,4 +1,4 @@
-var BEAUMONT\_CNTRY_NAME = {
+var BEAUMONT_CNTRY_NAME = {
   "198601": {
     "ARGENTINA": {
       "Total": 9,
@@ -7708,7 +7708,7 @@ var BEAUMONT\_CNTRY_NAME = {
     }
   }
 }
-var BEAUMONT\_R_S_NAME = {
+var BEAUMONT_R_S_NAME = {
   "198601": {
     "AMOCO SUPPLY": {
       "Total": 151,
@@ -13678,7 +13678,7 @@ var BEAUMONT\_R_S_NAME = {
     }
   }
 }
-var BEAUMONT\_PROD_NAME = {
+var BEAUMONT_PROD_NAME = {
   "198601": {
     "CRUDE OIL": {
       "Total": 2381,

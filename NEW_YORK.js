@@ -1,4 +1,4 @@
-var NEW_YORK\_CNTRY_NAME = {
+var NEW_YORK_CNTRY_NAME = {
   "198601": {
     "ABU ZABY": {
       "Total": 329,
@@ -22404,7 +22404,7 @@ var NEW_YORK\_CNTRY_NAME = {
     }
   }
 }
-var NEW_YORK\_R_S_NAME = {
+var NEW_YORK_R_S_NAME = {
   "198601": {
     "AMERADA HESS CORP": {
       "Total": 2944,
@@ -39494,7 +39494,7 @@ var NEW_YORK\_R_S_NAME = {
     }
   }
 }
-var NEW_YORK\_PROD_NAME = {
+var NEW_YORK_PROD_NAME = {
   "198601": {
     "ASPHALT & ROAD OIL": {
       "Total": 40,

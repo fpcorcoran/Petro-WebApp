@@ -1,4 +1,4 @@
-var NEW_ORLEANS\_CNTRY_NAME = {
+var NEW_ORLEANS_CNTRY_NAME = {
   "198601": {
     "ALGERIA": {
       "Total": 790,
@@ -19296,7 +19296,7 @@ var NEW_ORLEANS\_CNTRY_NAME = {
     }
   }
 }
-var NEW_ORLEANS\_R_S_NAME = {
+var NEW_ORLEANS_R_S_NAME = {
   "198601": {
     "AMERADA HESS CORP": {
       "Total": 233,
@@ -33934,7 +33934,7 @@ var NEW_ORLEANS\_R_S_NAME = {
     }
   }
 }
-var NEW_ORLEANS\_PROD_NAME = {
+var NEW_ORLEANS_PROD_NAME = {
   "198601": {
     "CRUDE OIL": {
       "Total": 18965,

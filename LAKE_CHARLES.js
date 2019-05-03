@@ -1,4 +1,4 @@
-var LAKE_CHARLES\_CNTRY_NAME = {
+var LAKE_CHARLES_CNTRY_NAME = {
   "198601": {
     "AUSTRALIA": {
       "Total": 1,
@@ -8088,7 +8088,7 @@ var LAKE_CHARLES\_CNTRY_NAME = {
     }
   }
 }
-var LAKE_CHARLES\_R_S_NAME = {
+var LAKE_CHARLES_R_S_NAME = {
   "198601": {
     "CITGO PETRO CORP": {
       "Total": 3002,
@@ -12042,7 +12042,7 @@ var LAKE_CHARLES\_R_S_NAME = {
     }
   }
 }
-var LAKE_CHARLES\_PROD_NAME = {
+var LAKE_CHARLES_PROD_NAME = {
   "198601": {
     "CRUDE OIL": {
       "Total": 5713,

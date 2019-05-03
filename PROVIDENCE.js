@@ -1,4 +1,4 @@
-var PROVIDENCE\_CNTRY_NAME = {
+var PROVIDENCE_CNTRY_NAME = {
   "198601": {
     "CANADA": {
       "Total": 205,
@@ -7678,7 +7678,7 @@ var PROVIDENCE\_CNTRY_NAME = {
     }
   }
 }
-var PROVIDENCE\_R_S_NAME = {
+var PROVIDENCE_R_S_NAME = {
   "198601": {
     "ASTROLINE CORP": {
       "Total": 205,
@@ -15598,7 +15598,7 @@ var PROVIDENCE\_R_S_NAME = {
     }
   }
 }
-var PROVIDENCE\_PROD_NAME = {
+var PROVIDENCE_PROD_NAME = {
   "198601": {
     "DISTILLATE FUEL, TOTAL": {
       "Total": 395,

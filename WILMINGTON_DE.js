@@ -1,4 +1,4 @@
-var WILMINGTON_DE\_CNTRY_NAME = {
+var WILMINGTON_DE_CNTRY_NAME = {
   "198601": {
     "MEXICO": {
       "Total": 469,
@@ -10684,7 +10684,7 @@ var WILMINGTON_DE\_CNTRY_NAME = {
     }
   }
 }
-var WILMINGTON_DE\_R_S_NAME = {
+var WILMINGTON_DE_R_S_NAME = {
   "198601": {
     "TEXACO INC": {
       "Total": 3096,
@@ -15614,7 +15614,7 @@ var WILMINGTON_DE\_R_S_NAME = {
     }
   }
 }
-var WILMINGTON_DE\_PROD_NAME = {
+var WILMINGTON_DE_PROD_NAME = {
   "198601": {
     "CRUDE OIL": {
       "Total": 3096,

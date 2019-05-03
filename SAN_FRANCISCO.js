@@ -1,4 +1,4 @@
-var SAN_FRANCISCO\_CNTRY_NAME = {
+var SAN_FRANCISCO_CNTRY_NAME = {
   "198601": {
     "CHINA, PEOPLES REP": {
       "Total": 506,
@@ -4504,7 +4504,7 @@ var SAN_FRANCISCO\_CNTRY_NAME = {
     }
   }
 }
-var SAN_FRANCISCO\_R_S_NAME = {
+var SAN_FRANCISCO_R_S_NAME = {
   "198601": {
     "OWENS CORNING": {
       "Total": 68,
@@ -8302,7 +8302,7 @@ var SAN_FRANCISCO\_R_S_NAME = {
     }
   }
 }
-var SAN_FRANCISCO\_PROD_NAME = {
+var SAN_FRANCISCO_PROD_NAME = {
   "198601": {
     "ASPHALT & ROAD OIL": {
       "Total": 68,

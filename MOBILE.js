@@ -1,4 +1,4 @@
-var MOBILE\_CNTRY_NAME = {
+var MOBILE_CNTRY_NAME = {
   "198601": {
     "VENEZUELA": {
       "Total": 282,
@@ -6494,7 +6494,7 @@ var MOBILE\_CNTRY_NAME = {
     }
   }
 }
-var MOBILE\_R_S_NAME = {
+var MOBILE_R_S_NAME = {
   "198601": {
     "GAF BLDG MATERIALS CORP": {
       "Total": 35,
@@ -11722,7 +11722,7 @@ var MOBILE\_R_S_NAME = {
     }
   }
 }
-var MOBILE\_PROD_NAME = {
+var MOBILE_PROD_NAME = {
   "198601": {
     "ASPHALT & ROAD OIL": {
       "Total": 35,

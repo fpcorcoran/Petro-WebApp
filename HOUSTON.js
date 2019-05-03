@@ -1,4 +1,4 @@
-var HOUSTON\_CNTRY_NAME = {
+var HOUSTON_CNTRY_NAME = {
   "198601": {
     "ALGERIA": {
       "Total": 236,
@@ -40772,7 +40772,7 @@ var HOUSTON\_CNTRY_NAME = {
     }
   }
 }
-var HOUSTON\_R_S_NAME = {
+var HOUSTON_R_S_NAME = {
   "198601": {
     "AECTRA REFG & MKTG": {
       "Total": 11,
@@ -76374,7 +76374,7 @@ var HOUSTON\_R_S_NAME = {
     }
   }
 }
-var HOUSTON\_PROD_NAME = {
+var HOUSTON_PROD_NAME = {
   "198601": {
     "CRUDE OIL": {
       "Total": 3855,

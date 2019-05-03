@@ -1,4 +1,4 @@
-var JACKSONVILLE\_CNTRY_NAME = {
+var JACKSONVILLE_CNTRY_NAME = {
   "198601": {
     "BAHAMAS": {
       "Total": 129,
@@ -9304,7 +9304,7 @@ var JACKSONVILLE\_CNTRY_NAME = {
     }
   }
 }
-var JACKSONVILLE\_R_S_NAME = {
+var JACKSONVILLE_R_S_NAME = {
   "198601": {
     "AMERADA HESS CORP": {
       "Total": 183,
@@ -16542,7 +16542,7 @@ var JACKSONVILLE\_R_S_NAME = {
     }
   }
 }
-var JACKSONVILLE\_PROD_NAME = {
+var JACKSONVILLE_PROD_NAME = {
   "198601": {
     "ASPHALT & ROAD OIL": {
       "Total": 5,

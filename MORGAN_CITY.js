@@ -1,4 +1,4 @@
-var MORGAN_CITY\_CNTRY_NAME = {
+var MORGAN_CITY_CNTRY_NAME = {
   "198707": {
     "IRAQ": {
       "Total": 1116,
@@ -9004,7 +9004,7 @@ var MORGAN_CITY\_CNTRY_NAME = {
     }
   }
 }
-var MORGAN_CITY\_R_S_NAME = {
+var MORGAN_CITY_R_S_NAME = {
   "198707": {
     "ASHLAND OIL INC": {
       "Total": 4919,
@@ -15210,7 +15210,7 @@ var MORGAN_CITY\_R_S_NAME = {
     }
   }
 }
-var MORGAN_CITY\_PROD_NAME = {
+var MORGAN_CITY_PROD_NAME = {
   "198707": {
     "CRUDE OIL": {
       "Total": 5319,

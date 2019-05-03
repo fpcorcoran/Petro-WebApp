@@ -1,4 +1,4 @@
-var PORTLAND\_CNTRY_NAME = {
+var PORTLAND_CNTRY_NAME = {
   "198601": {
     "BAHAMAS": {
       "Total": 122,
@@ -6916,7 +6916,7 @@ var PORTLAND\_CNTRY_NAME = {
     }
   }
 }
-var PORTLAND\_R_S_NAME = {
+var PORTLAND_R_S_NAME = {
   "198601": {
     "GLOBAL PETRO CORP": {
       "Total": 184,
@@ -15226,7 +15226,7 @@ var PORTLAND\_R_S_NAME = {
     }
   }
 }
-var PORTLAND\_PROD_NAME = {
+var PORTLAND_PROD_NAME = {
   "198601": {
     "DISTILLATE FUEL, TOTAL": {
       "Total": 205,

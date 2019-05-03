@@ -1,4 +1,4 @@
-var NORFOLK\_CNTRY_NAME = {
+var NORFOLK_CNTRY_NAME = {
   "198601": {
     "ALGERIA": {
       "Total": 1,
@@ -5202,7 +5202,7 @@ var NORFOLK\_CNTRY_NAME = {
     }
   }
 }
-var NORFOLK\_R_S_NAME = {
+var NORFOLK_R_S_NAME = {
   "198601": {
     "AMERADA HESS CORP": {
       "Total": 347,
@@ -10378,7 +10378,7 @@ var NORFOLK\_R_S_NAME = {
     }
   }
 }
-var NORFOLK\_PROD_NAME = {
+var NORFOLK_PROD_NAME = {
   "198601": {
     "ASPHALT & ROAD OIL": {
       "Total": 58,

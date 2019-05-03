@@ -1,4 +1,4 @@
-var BATON_ROUGE\_CNTRY_NAME = {
+var BATON_ROUGE_CNTRY_NAME = {
   "198601": {
     "ARGENTINA": {
       "Total": 18,
@@ -19080,7 +19080,7 @@ var BATON_ROUGE\_CNTRY_NAME = {
     }
   }
 }
-var BATON_ROUGE\_R_S_NAME = {
+var BATON_ROUGE_R_S_NAME = {
   "198601": {
     "BP OIL SUPPLY CO": {
       "Total": 18,
@@ -29486,7 +29486,7 @@ var BATON_ROUGE\_R_S_NAME = {
     }
   }
 }
-var BATON_ROUGE\_PROD_NAME = {
+var BATON_ROUGE_PROD_NAME = {
   "198601": {
     "CRUDE OIL": {
       "Total": 264,

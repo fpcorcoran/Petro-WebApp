@@ -1,4 +1,4 @@
-var NEWARK\_CNTRY_NAME = {
+var NEWARK_CNTRY_NAME = {
   "198601": {
     "ALGERIA": {
       "Total": 678,
@@ -27016,7 +27016,7 @@ var NEWARK\_CNTRY_NAME = {
     }
   }
 }
-var NEWARK\_R_S_NAME = {
+var NEWARK_R_S_NAME = {
   "198601": {
     "BP N AMER PETRO INC": {
       "Total": 475,
@@ -44134,7 +44134,7 @@ var NEWARK\_R_S_NAME = {
     }
   }
 }
-var NEWARK\_PROD_NAME = {
+var NEWARK_PROD_NAME = {
   "198601": {
     "CRUDE OIL": {
       "Total": 2864,

@@ -1,4 +1,4 @@
-var PORT_ARTHUR\_CNTRY_NAME = {
+var PORT_ARTHUR_CNTRY_NAME = {
   "198601": {
     "ANGOLA": {
       "Total": 616,
@@ -16740,7 +16740,7 @@ var PORT_ARTHUR\_CNTRY_NAME = {
     }
   }
 }
-var PORT_ARTHUR\_R_S_NAME = {
+var PORT_ARTHUR_R_S_NAME = {
   "198601": {
     "CHEVRON CORP": {
       "Total": 1891,
@@ -26450,7 +26450,7 @@ var PORT_ARTHUR\_R_S_NAME = {
     }
   }
 }
-var PORT_ARTHUR\_PROD_NAME = {
+var PORT_ARTHUR_PROD_NAME = {
   "198601": {
     "CRUDE OIL": {
       "Total": 3763,

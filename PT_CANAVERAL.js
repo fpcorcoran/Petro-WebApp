@@ -1,4 +1,4 @@
-var PT_CANAVERAL\_CNTRY_NAME = {
+var PT_CANAVERAL_CNTRY_NAME = {
   "198601": {
     "VENEZUELA": {
       "Total": 98,
@@ -5468,7 +5468,7 @@ var PT_CANAVERAL\_CNTRY_NAME = {
     }
   }
 }
-var PT_CANAVERAL\_R_S_NAME = {
+var PT_CANAVERAL_R_S_NAME = {
   "198601": {
     "COASTAL FUELS & MKTG INC": {
       "Total": 98,
@@ -8506,7 +8506,7 @@ var PT_CANAVERAL\_R_S_NAME = {
     }
   }
 }
-var PT_CANAVERAL\_PROD_NAME = {
+var PT_CANAVERAL_PROD_NAME = {
   "198601": {
     "MOTOR GAS, FINISHED UNLEADED": {
       "Total": 98,
