@@ -2,14 +2,22 @@
 <html>
 
   <head>
-
     <meta charset="utf-8">
+
     <!-- CSS Imports -->
     <link rel="stylesheet" href="style.css" />
+
+	<!-- Leaflet Stylesheet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
-      integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
-      crossorigin=""/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    	integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+    	crossorigin=""/>
+
+	<!-- Bootstrap Stylesheet -->
+	<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+		integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+		crossorigin="anonymous"> -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
 
 
   </head>
@@ -24,6 +32,21 @@
     <!-- Page Sidebar -->
     <div class="sidebar">
       <h1 class="title" id="sidebar-title">Petroleum Import Visualizer</h1>
+
+	  <!-- Toggle Data Buttons -->
+	  <div id="button-area" class="btn-group btn-group-toggle" data-toggle="buttons">
+  		<label class="btn btn-secondary active">
+			<input type="radio" name="options" id="option1" autocomplete="off" checked> Country
+  		</label>
+  		<label class="btn btn-secondary">
+    		<input type="radio" name="options" id="option2" autocomplete="off"> Product
+  		</label>
+  		<label class="btn btn-secondary">
+    		<input type="radio" name="options" id="option3" autocomplete="off"> Company
+  		</label>
+	</div>
+
+	  <!-- Bar Chart -->
       <div class="chart-area">
         <svg class="chart" id="chart"></svg>
       </div>
@@ -34,12 +57,13 @@
     </div>
 
     <!-- Bottom Bar -->
-    <div class="bottom">
+    <div class="bottom" id="bottom">
       <!--<h1 class="title" id="bottom-title">This is the bottom</h1>-->
-      <a href="#" class="scroll-button" id="left-button">&#8249;</a>
+
+ <!-- <a href="#" class="scroll-button" id="left-button">&#8249;</a>
       <a href="#" class="scroll-button" id="right-button">&#8250;</a>
       <a href="#" class="scroll-button" id="play">&#9658;</a>
-      <a href="#" class="scroll-button" id="pause">&#10073;&#10073;</a>
+      <a href="#" class="scroll-button" id="pause">&#10073;&#10073;</a> -->
 
     </div>
 
@@ -105,6 +129,7 @@
    <script src="data_digestion.js"></script>
    <script src="button_events.js"></script>
    <script src="Chart_figure.js"></script>
+   <script src="TimeSeries.js"></script>
    <script src="main.js"></script>
 
 
