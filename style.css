@@ -79,6 +79,12 @@
 /*
  * Style for charts/figures
  */
+
+.chart-info{
+	color: white;
+	z-index: 4;
+}
+
 .chart-area{
   width: 300px;
   height: 300px;
@@ -94,6 +100,15 @@
   font: 10px sans-serif;
   text-anchor: end;
 }
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 5px;
+  z-index: 4;
+}
+
+
 /*
  * Style for button elements
  */

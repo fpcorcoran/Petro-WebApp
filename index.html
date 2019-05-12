@@ -36,15 +36,18 @@
 	  <!-- Toggle Data Buttons -->
 	  <div id="button-area" class="btn-group btn-group-toggle" data-toggle="buttons">
   		<label class="btn btn-secondary active">
-			<input type="radio" name="options" id="option1" autocomplete="off" checked> Country
+			<input type="radio" name="options" id="country-button" autocomplete="off" checked> Country
   		</label>
   		<label class="btn btn-secondary">
-    		<input type="radio" name="options" id="option2" autocomplete="off"> Product
+    		<input type="radio" name="options" id="product-button" autocomplete="off"> Product
   		</label>
   		<label class="btn btn-secondary">
-    		<input type="radio" name="options" id="option3" autocomplete="off"> Company
+    		<input type="radio" name="options" id="company-button" autocomplete="off"> Company
   		</label>
 	</div>
+
+	<p class="chart-info" id="chart-title">Port: </p>
+	<p class="chart-info" id="chart-date">Date: </p>
 
 	  <!-- Bar Chart -->
       <div class="chart-area">
@@ -68,7 +71,6 @@
     </div>
 
 	<!-- Import Data For Ports -->
-
 	<script type="text/javascript" src="BATON_ROUGE.js"></script>
 	<script type="text/javascript" src="BEAUMONT.js"></script>
 	<script type="text/javascript" src="BOSTON.js"></script>
@@ -100,6 +102,9 @@
 	<script src="TAMPA.js"></script>
 	<script src="WILMINGTON.js"></script>
 
+	<!-- Import Crude Oil WTI-Cushing,OK Date -->
+	<script src="crude_prices_monthly.js"></script>
+
     <!-- Import Leaflet JS -->
    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
    integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
@@ -129,7 +134,6 @@
    <script src="data_digestion.js"></script>
    <script src="button_events.js"></script>
    <script src="Chart_figure.js"></script>
-   <script src="TimeSeries.js"></script>
    <script src="main.js"></script>
 
 

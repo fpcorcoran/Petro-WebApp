@@ -1,36 +1,101 @@
-var data = [4, 8, 15, 16, 23, 42];
+//Get a timeseries array for each key in the dataset
+var Get_By_Label = function(data){
+	var labels = [];
 
-var width = 300,
-    barHeight = 20;
+	//append all the labels to the lables list from all the dates
+	Object.keys(data).forEach(function(d){
+		labels = labels.concat(Object.keys(data[d]));
+	});
+
+	//convert the labels array to a set, automatically erasing all duplicate labels
+	var u_labels = new Set(labels);
+
+	//add a key to the labeled_totals object for each unique label and match with an empty array
+	var labeled_totals = [];
+	u_labels.forEach(function(u){
+		labeled_totals.push({"Label":u, "Imports":[],"Color":chroma.random()});
+	});
+
+	//loop through dates
+	Object.keys(data).forEach(function(d){
+		//loop through unique list of labels
+		labeled_totals.forEach(function(l,i){
+			//if the list of labels for that date contains the label in quesiton:
+			if( Object.keys(data[d]).includes(l.Label) ){
+				//append the total value to the list in labeled_totals
+				labeled_totals[i].Imports.push(data[d][l.Label].Total);
+			//if that label does not appear in that date period
+			} else{
+				//append a 0 to the list in labeled_totals
+				labeled_totals[i].Imports.push(0);
+			}
 
 
-var x = d3.scaleLinear()
-    .domain([0, d3.max(data)])
-    .range([0, width]);
+		});
+	});
+	//Example result: labeled_totals = {"ARGENTINA":[...], "CANADA":[...], "SAUDI ARABIA":[...]}
+	return labeled_totals;
+};
 
-var t = d3.transition()
-    .duration(10000)
-    .ease(d3.easeLinear);
+var sb_width = 300; barHeight = 20;
 
-var chart = d3.select(".chart")
-    .attr("width", width)
-    .attr("height", barHeight * data.length);
+var makeBars = function(labeled_totals,start){
 
-var bar = chart.selectAll("g")
-    .data(data)
-  .enter().append("g")
-    .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
+	var n_labels = labeled_totals.length;
+	var n_inc = labeled_totals[0].Imports.length;
 
-bar.append("rect")
-    .attr("width", x)
-    .attr("height", barHeight - 1)
-    .style("fill","red");
+	var all_vals = [];
+	labeled_totals.forEach(function(l){
+		all_vals = all_vals.concat(l.Imports);
+	});
 
-bar.append("text")
-    .attr("x", function(d) { return x(d) - 3; })
-    .attr("y", barHeight / 2)
-    .attr("dy", ".35em")
-    .text(function(d) { return d; });
+	var x = d3.scaleLinear()
+	    	  .domain([0, d3.max(all_vals)])
+	    	  .range([0, sb_width]);
 
-d3.selectAll("rect").transition(t).style("width",0);
-d3.selectAll("text").transition(t).attr("transform","translate(-"+width+")");
+	var t = d3.transition()
+		      .duration(1500)
+		      .ease(d3.easeLinear);
+
+	var chart = d3.select(".chart")
+		  	      .attr("width", sb_width)
+		  	      .attr("height", barHeight * n_labels);
+
+
+	var bar = chart.selectAll("g")
+				   .data(labeled_totals)
+				   .enter().append("g")
+				   .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
+
+	bar.append("rect")
+	   .attr("width", function(d){ return x(d.Imports[start]); })
+	   .attr("height", barHeight - 1)
+	   .style("fill",function(d){ return d.Color; })
+	   .filter(function(d){ return d.Imports[start] > 0; });
+
+
+	bar.append("text")
+	   .attr("text-anchor","start")
+	   .attr("x",sb_width)
+	   .attr("y", barHeight / 2)
+	   .attr("dy", ".35em")
+	   .text(function(d) {
+		   //if(x(d.Imports[0]) > 0){
+		    return d.Label;
+			//}
+		})
+		.filter(function(d){ return d.Imports[start] > 0; });
+
+	for(i=start; i < n_inc; i++){
+		d3.selectAll("rect")
+		  .data(labeled_totals)
+		  .transition()
+		  .duration(1500)
+		  .delay(1500*i)
+		  .ease(d3.easeLinear)
+		  .attr("width", function(d){ return x(d.Imports[i]); })
+		  .filter(function(d){ return d.Imports[i] > 0; });
+
+	}
+
+};
