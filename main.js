@@ -35,8 +35,39 @@ Data.objects.forEach(function(d){
   d.LatLng = new L.LatLng(d.circle.coordinates[0], d.circle.coordinates[1]);
 });
 
+//Add event listeners to the data type buttons
+var check = function(buttonID){
+	console.log(buttonID + " - Checked");
+	$("#"+buttonID).prop("checked");
+};
 
+var uncheck = function(buttonID){
+	console.log(buttonID + " - Unchecked");
+	if (document.getElementById(buttonID).checked){
+		$("#"+buttonID).removeProp("checked");
+	}
+};
 
+$("#product-button").on("click", function(){
+	console.log("click");
+	check("product-button");
+	uncheck("company-button");
+	uncheck("country-button");
+});
+
+$("#company-button").on("click", function(){
+	console.log("click");
+	uncheck("product-button");
+	check("company-button");
+	uncheck("country-button");
+});
+
+$("#country-button").on("click", function(){
+	console.log("click");
+	uncheck("product-button");
+	uncheck("company-button");
+	check("country-button");
+});
 
 var selected_city;
 var start_time;
@@ -73,10 +104,12 @@ var g = d3.select("#mapid")
 					  var title = document.getElementById("chart-title");
 					  var city_text = document.createTextNode(selected_city);
 
+					  //if there is city already being displayed, remove it
 					  if(title.childNodes.length > 1){
 					  	title.removeChild(title.childNodes[1]);
 					  }
 
+					  //add the newly selected city to <p>Port: </p>
 					  title.appendChild(city_text);
 
 
@@ -96,6 +129,7 @@ var g = d3.select("#mapid")
 					  	  l = Get_By_Label(cities[selected_city][2]);
 
 					  }
+					  clearSidebar();
 					  makeBars(l,start_time);
 
 
@@ -124,49 +158,29 @@ range.forEach(function(year){
 	setTimeout(function(){
 		start_time = year;
 
+		//Get the chart date
 		var current_year = document.getElementById("chart-date");
 
+		//create data parse and format functions
 		var p = d3.timeParse("%m-%Y");
 		var f = d3.timeFormat("%b-%Y");
+
+		//get a list of dates (just used baton rouge for ease, could be any city)
 		var d = Object.keys(BATON_ROUGE_CNTRY_NAME)[year];
 
+		//change YYYYmm to mm-YYYY, parse the date and format it to bbb-YYY
 		var formatted_date = f(p(d.slice(4,) + "-" + d.slice(0,4)));
 
-		console.log(formatted_date);
+		//create a text node with the new date
 		var time_node = document.createTextNode(formatted_date);
 
+		//if the date tag already has a date in it, remove that date
 		if( current_year.childNodes.length > 1){
 			current_year.removeChild(current_year.childNodes[1]);
 		}
-
+		//append the new date to the date tag
 		current_year.appendChild(time_node);
 
-	// 	d3.select("#mapid")
-	// 	  .select("svg")
-	// 	  .select("g")
-	// 	  .selectAll("circle")
-	// 	  .data(Data.objects)
-	// 	 //add click functionality for the circles
-	// 	 .on("click", function(d){
-	// 	 selected_city = d.circle.City;
-	//
-	// 	//when clicked, city will have a red outline, all other cities will have no outline
-	// 	d3.selectAll("circle").style("stroke","none");
-	// 	d3.select(this).style("stroke", "red")
-	// 				   .style("stroke-width","2px");
-	// 	//when you click a city, the sidebar responds with the breakdown, based on radio button state
-	// 	var l;
-	// 	if( document.getElementById("country-button").checked){
-	// 		l = Get_By_Label(cities[selected_city][0]);
-	// 		makeBars(l,year);
-	// 	} else if( document.getElementById("product-button").checked){
-	// 		l = Get_By_Label(cities[selected_city][1]);
-	// 		makeBars(l,year);
-	// 	} else if( document.getElementById("company-button").checked){
-	// 		l = Get_By_Label(cities[selected_city][2]);
-	// 		makeBars(l,year);
-	// 	}
-	// });
 	},1500*year);
 
 	d3.select("#mapid").select("svg").select("g").selectAll("circle")
@@ -211,72 +225,75 @@ range.forEach(function(year){
 
 
 
+//Not sure if I'll need this either, but use them in a few places below
+var margin = {top: 2, right: 2, bottom: 5, left: 5};
+var width = document.getElementById("bottom").offsetWidth - margin.left - margin.right;
+var height = document.getElementById("bottom").offsetHeight - margin.top - margin.bottom;
+
+var parse_dates = function(date){
+	var new_date = date.slice(4,) + "-" + date.slice(0,4);
+	var parse_time = d3.timeParse("%m-%Y");
+	var format = d3.timeFormat("%b-%Y");
+	return parse_time(new_date);
+};
+
+//set up data
+var data = [];
+
+//parse the dates
+var dates = Object.keys(crude_prices).map(function(date){ return parse_dates(date); });
+var prices = Object.values(crude_prices);
+
+//append each month in the time series as a new object pair to the data variable
+for(i=0; i<Object.keys(dates).length; i++){
+	var new_entry = {};
+
+	new_entry.date = dates[i];
+	new_entry.price = Object.values(crude_prices)[i];
+
+	data.push(new_entry);
+}
+
+//number of data points
+var n = Object.keys(crude_prices).length;
+
+//set up the x and y values - may need to parse dates from YYYYMM to MM-YYYY
+var x = d3.scaleTime()
+		  .domain(d3.extent(dates))                  //domain of inputs
+		  .range([0, width]);                             //range of outputs
+
+var y = d3.scaleLinear()
+		  .domain(d3.extent(prices))                 //domain of inputs
+		  .range([height, 0]); 							  //range of outputs
 
 
+var line = d3.line()
+			  .x(function(d){ return x(d.date); })
+			  .y(function(d){ return y(d.price); });
 
 
+var TS_svg = d3.select("#bottom")
+			   .append("svg")
+			   .attr("width", width)
+			   .attr("height", height)
+			   .append("g")
+			   .attr("class","line-chart")
+			   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
+TS_svg.append("g")
+	  .attr("class","y axis")
+	  .attr("height", height)
+	  .call(d3.axisLeft(y));
 
-// //Not sure if I'll need this either, but use them in a few places below
-// var margin = {top: 2, right: 2, bottom: 5, left: 5};
-// var width = document.getElementById("bottom").offsetWidth - margin.left - margin.right;
-// var height = document.getElementById("bottom").offsetHeight - margin.top - margin.bottom;
-//
-// var parse_dates = function(date){
-// 	var new_date = date.slice(4,) + "-" + date.slice(0,4);
-// 	var parse_time = d3.timeParse("%m-%Y");
-// 	var format = d3.timeFormat("%b-%Y");
-// 	return parse_time(new_date);
-// };
-//
-// //set up data
-// var data = {};
-//
-// data.dates = Object.keys(crude_prices).map(function(date){ return parse_dates(date); });
-// data.prices = Object.values(crude_prices);
-//
-//
-// //number of data points
-// var n = Object.keys(crude_prices).length;
-//
-// //set up the x and y values - may need to parse dates from YYYYMM to MM-YYYY
-// var x = d3.scaleTime()
-// 		  .domain(d3.extent(data.dates))                  //domain of inputs
-// 		  .range([0, width]);                             //range of outputs
-//
-// var y = d3.scaleLinear()
-// 		  .domain(d3.extent(data.prices))                 //domain of inputs
-// 		  .range([height, 0]); 							  //range of outputs
-//
-//
-// var line = d3.line()
-// 			  .x(function(d){ return x(d.dates); })
-// 			  .y(function(d){ return y(d.prices); });
-//
-//
-// var TS_svg = d3.select("#bottom")
-// 			   .append("svg")
-// 			   .attr("width", width)
-// 			   .attr("height", height)
-// 			   .append("g")
-// 			   .attr("class","line-chart")
-// 			   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-//
-//
-// TS_svg.append("g")
-// 	  .attr("class","y axis")
-// 	  .attr("height", height)
-// 	  .call(d3.axisLeft(y));
-//
-// TS_svg.append("g")
-// 	  .attr("class", "x axis")
-// 	  .attr("transform", "translate(0,"+ height +")")
-// 	  .call(d3.axisBottom(x));
-//
-// TS_svg.append("path")
-// 	  	  .data(data)
-// 	  	  .attr("class", "line")
-// 	  	  .attr("d", line(data));
-//
-// d3.selectAll(".tick").attr("stroke", "red").attr("fill","blue");
+TS_svg.append("g")
+	  .attr("class", "x axis")
+	  .attr("transform", "translate(0,"+ height +")")
+	  .call(d3.axisBottom(x));
+
+TS_svg.append("path")
+	  	  .data(data)
+	  	  .attr("class", "line")
+	  	  .attr("d", line(data));
+
+d3.selectAll(".tick").attr("stroke", "red").attr("fill","blue");

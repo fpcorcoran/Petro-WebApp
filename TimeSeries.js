@@ -13,10 +13,22 @@ var parse_dates = function(date){
 };
 
 //set up data
-var data = {};
+var data = [];
 
-data.dates = Object.keys(crude_prices).map(function(date){ return parse_dates(date); });
-data.prices = Object.values(crude_prices);
+//parse the dates
+var dates = Object.keys(crude_prices).map(function(date){ return parse_dates(date); });
+
+//append each month in the time series as a new object pair to the data variable
+for(i=0; i<Objects.keys(dates).length; i++){
+	var new_entry = {};
+	
+	new_entry.date = dates[i];
+	new_entry.price = Object.values(crude_prices)[i];
+
+	data.push(new_entry);
+}
+// var dates = Object.keys(crude_prices).map(function(date){ return parse_dates(date); });
+// data.prices = Object.values(crude_prices);
 
 
 //number of data points
