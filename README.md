@@ -7,7 +7,7 @@
 ### - A time series of the West Texas Intermediate - Cushing, Oklahoma, a global crude oil price idex
 ### - A bar chart area where the data of a selected can be visualized by selecting it from the map (data includes shipment countries of origin, product types, and receiving companies)
 
-![alt text]() 
+![alt text](App_Example.png) 
 
 #### This project was created by Forrest Corcoran with support from the Kleinman Center for Energy Policy at the University of Pennsylvania
 
