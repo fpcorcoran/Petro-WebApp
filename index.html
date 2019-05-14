@@ -30,27 +30,30 @@
     </div>
 
     <!-- Page Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar-topcard">
       <h1 class="title" id="sidebar-title">Petroleum Import Visualizer</h1>
 
 	  <!-- Toggle Data Buttons -->
 	  <div id="button-area" class="btn-group btn-group-toggle" data-toggle="buttons">
-  		<label class="btn btn-secondary active">
+  		<label class="btn btn-secondary active" id="country-button-label">
 			<input type="radio" name="options" class="data-button" id="country-button" autocomplete="off" checked> Country
   		</label>
-  		<label class="btn btn-secondary">
+  		<label class="btn btn-secondary" id="product-button-label">
     		<input type="radio" name="options" class="data-button" id="product-button" autocomplete="off"> Product
   		</label>
-  		<label class="btn btn-secondary">
+  		<label class="btn btn-secondary" id="company-button-label">
     		<input type="radio" name="options" class="data-button" id="company-button" autocomplete="off"> Company
   		</label>
-	</div>
+	  </div>
 
-	<p class="chart-info" id="chart-title">Port: </p>
-	<p class="chart-info" id="chart-date">Date: </p>
+	  <p class="chart-info" id="chart-title">Port: </p>
+	  <p class="chart-info" id="chart-date">Date: </p>
+    </div>
 
+	<div class="sidebar" id="sidebar-slider">
 	  <!-- Bar Chart -->
-      <div class="chart-area">
+      <div class="chart-area" id="chart-area">
+		<p id="chart-hint">Select City to Visualize Data<p/>
         <svg class="chart" id="chart"></svg>
       </div>
     </div>

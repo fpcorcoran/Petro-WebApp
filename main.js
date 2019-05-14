@@ -40,6 +40,7 @@ Data.objects.forEach(function(d){
 var check = function(buttonID){
 	console.log(buttonID + " - Checked");
 	$("#"+buttonID).prop("checked");
+	$("#"+buttonID+"-label").addClass("active");
 };
 
 var uncheck = function(buttonID){
@@ -47,31 +48,43 @@ var uncheck = function(buttonID){
 	if (document.getElementById(buttonID).checked){
 		$("#"+buttonID).removeProp("checked");
 	}
+	$("#"+buttonID+"-label").removeClass("active");
 };
 
+//Get the current state of the model selection
+var selected_city;
+var start_time;
+
 $("#product-button").on("click", function(){
-	console.log("click");
+
 	check("product-button");
 	uncheck("company-button");
 	uncheck("country-button");
+
+	clearSidebar();
+	makeBars(Get_By_Label(cities[selected_city][1]),start_time);
+
 });
 
 $("#company-button").on("click", function(){
-	console.log("click");
+
 	uncheck("product-button");
 	check("company-button");
 	uncheck("country-button");
+
+	clearSidebar();
+	makeBars(Get_By_Label(cities[selected_city][2]),start_time);
 });
 
 $("#country-button").on("click", function(){
-	console.log("click");
+
 	uncheck("product-button");
 	uncheck("company-button");
 	check("country-button");
-});
 
-var selected_city;
-var start_time;
+	clearSidebar();
+	makeBars(Get_By_Label(cities[selected_city][0]),start_time);
+});
 
 //Select the g element of the map svg and append a circle for each port
 var g = d3.select("#mapid")
@@ -104,6 +117,13 @@ var g = d3.select("#mapid")
 					  //get bar chart info tags
 					  var title = document.getElementById("chart-title");
 					  var city_text = document.createTextNode(selected_city);
+
+					  //if the chart hint is still up, get rid of it
+					  var hint = document.getElementById("chart-hint");
+					  if(document.body.contains(hint)){
+						  console.log("test correct");
+						  document.getElementById("chart-area").removeChild(hint);
+					  }
 
 					  //if there is city already being displayed, remove it
 					  if(title.childNodes.length > 1){
