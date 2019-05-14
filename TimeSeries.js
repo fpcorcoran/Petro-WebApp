@@ -1,73 +1,126 @@
-//Margins object (not sure if I'll need this)
-var margin = {"top": 10, "bottom": 10, "left": 10, "right": 10};
+var make_TimeSeries = function(){
 
-//Not sure if I'll need this either, but use them in a few places below
-var width = 90;
-var height = 90;
+	var margin = {top: 2, right: 2, bottom: 5, left: 25};
 
-var parse_dates = function(date){
-	var new_date = date.slice(4,) + "-" + date.slice(0,4);
-	var parse_time = d3.timeParse("%m-%Y");
-	var format = d3.timeFormat("%b-%Y");
-	return format(parse_time(new_date));
+	var width = document.getElementById("bottom").offsetWidth - margin.left - margin.right;
+	console.log(width);
+	console.log(document.getElementById("bottom").offsetWidth);
+	var height = document.getElementById("bottom").offsetHeight - margin.top - margin.bottom;
+	console.log(height);
+	console.log(document.getElementById("bottom").offsetHeight);
+
+	var parse_dates = function(date){
+		var new_date = date.slice(4,) + "-" + date.slice(0,4);
+		var parse_time = d3.timeParse("%m-%Y");
+		var format = d3.timeFormat("%b-%Y");
+		return parse_time(new_date);
+	};
+
+	//set up data
+	var data = [];
+
+	//parse the dates
+	var dates = Object.keys(crude_prices).map(function(date){ return parse_dates(date); });
+	var prices = Object.values(crude_prices);
+
+	//append each month in the time series as a new object pair to the data variable
+	for(i=0; i<Object.keys(dates).length; i++){
+		var new_entry = {};
+
+		new_entry.date = dates[i];
+		new_entry.price = Object.values(crude_prices)[i];
+
+		data.push(new_entry);
+	}
+
+	//number of data points
+	var n = Object.keys(crude_prices).length;
+
+	//set up the x and y values - may need to parse dates from YYYYMM to MM-YYYY
+	var x = d3.scaleTime()
+			  .domain(d3.extent(dates))                  //domain of inputs
+			  .range([0, width]);                             //range of outputs
+
+	var y = d3.scaleLinear()
+			  .domain([0, d3.max(prices)+10])                 //domain of inputs
+			  .range([height, 0]); 							  //range of outputs
+
+
+	var line = d3.line()
+				  .x(function(d){ return x(d.date); })
+				  .y(function(d){ return y(d.price); });
+
+	// var marker_line = d3.line()
+	// 					.x(function(d){ return x(d.date); })
+	// 					.y(function(d){
+	// 						var max = d3.max(d.price);
+	// 						var arr = prices;
+	// 						return y(arr.fill(max,0,prices.length));
+	// 					});
+
+	//append an SVG element to the bottom bar, reshape it to the bottom dimensions, and append <g> tag with margins
+	var TS_svg = d3.select("#bottom")
+				   .append("svg")
+				   .attr("width", width)
+				   .attr("height", height)
+				   .append("g")
+				   .attr("class","line-chart")
+				   .attr("transform", "translate(" + margin.left + "," + "-" + margin.bottom + ")");
+
+
+	//apend Y Axis
+	TS_svg.append("g")
+		  .attr("class","y-axis")
+		  .attr("height", height)
+		  .attr("stroke","white")
+		  .call(d3.axisLeft(y));
+
+	//append X Axis
+	TS_svg.append("g")
+		  .attr("class", "x-axis")
+		  .attr("transform", "translate(0,0"+")")
+		  .attr("stroke","white")
+		  .call(d3.axisBottom(x));
+
+	//append the actual time series line
+	TS_svg.append("path")
+		  	  .data(data)
+		  	  .attr("class", "line")
+		  	  .attr("d", line(data));
+
+	//remove every other Y Axis label to avoid cluttering
+	d3.select(".y-axis").selectAll(".tick text")
+	  .attr("stroke-width", "1px")
+	  .attr("stroke","white")
+	  .attr("class",function(d,i){
+		  if(i%3 != 0){
+			  d3.select(this).remove();
+		  }
+	  });
+
+	//append the marker line that indicates the time state of the model
+	TS_svg.append("line")
+		  .attr("x1",x(dates[0]))
+		  .attr("y1",0)
+		  .attr("x2",x(dates[0]))
+		  .attr("y1",height)
+		  .attr("stroke","red")
+		  .attr("stroke-width","2px")
+		  .attr("class","marker-line");
+
+	//transition the marker line across of the time series
+	for(i=1; i<dates.length; i++){
+		console.log(i);
+		d3.select(".marker-line")
+		  //.data(dates)
+		  .transition()
+		  .duration(1500)
+		  .delay(1500*i)
+		  .ease(d3.easeLinear)
+		  .attr("x1", x(dates[i]))
+		  .attr("x2", x(dates[i]));
+		  // .attr("x1", function(d){ console.log(i); return x(d[i]); })
+		  // .attr("x2", function(d){ console.log(i); return x(d[i]); });
+	}
+
 };
-
-//set up data
-var data = [];
-
-//parse the dates
-var dates = Object.keys(crude_prices).map(function(date){ return parse_dates(date); });
-
-//append each month in the time series as a new object pair to the data variable
-for(i=0; i<Objects.keys(dates).length; i++){
-	var new_entry = {};
-	
-	new_entry.date = dates[i];
-	new_entry.price = Object.values(crude_prices)[i];
-
-	data.push(new_entry);
-}
-// var dates = Object.keys(crude_prices).map(function(date){ return parse_dates(date); });
-// data.prices = Object.values(crude_prices);
-
-
-//number of data points
-var n = Object.keys(crude_prices).length;
-
-//set up the x and y values - may need to parse dates from YYYYMM to MM-YYYY
-var x = d3.scaleTime()
-		  .domain(d3.extent(data.dates))                  //domain of inputs
-		  .range([0, width]);                             //range of outputs
-
-var y = d3.scaleLinear()
-		  .domain(d3.extent(data.prices))                 //domain of inputs
-		  .range([height, 0]); 							  //range of outputs
-
-var line = d3.line()
-				.x(function(d){ return x(d.dates); })
-				.y(function(d){ return y(d.prices); });
-
-
-var TS_svg = d3.select("#bottom")
-			   .append("svg")
-			   .attr("width", "100%")
-			   .attr("height", height)
-			   .attr("transform", "translate(10,10)");
-
-
-TS_svg.append("g")
-	  .attr("class","y-axis")
-	  .call(d3.axisLeft(y));
-
-TS_svg.append("g")
-	  .attr("class", "x-axis")
-	  .attr("transform", "translate(0,500)")
-	  .call(d3.axisBottom(x));
-
-
-TS_svg.append("path")
-	  .data(crude_prices)
-	  .attr("class", "line")
-	  .attr("fill", "red")
-	  .attr("stroke", "red")
-	  .attr("d", line);

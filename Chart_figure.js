@@ -101,5 +101,5 @@ var makeBars = function(labeled_totals,start){
 };
 
 var clearSidebar = function(){
-	d3.selectAll(".char > *").remove();
+	d3.selectAll(".chart > *").remove();
 };

@@ -58,7 +58,6 @@
   margin: 15px;
   padding: 5px;
   height: 25%;
-  width: 75%;
   background-color: #444;
   border-radius: 10%;
 }
@@ -66,10 +65,10 @@
 
 .bottom {
   position: absolute;
-  bottom: 0px;
+  top: 85%;
   left: 24%;
   height: 15%;
-  width: 100%;
+  width: 76%;
   background-color: rgba(4,4,4,0.1);
   border: 2px solid #000;
   z-index: 2;
