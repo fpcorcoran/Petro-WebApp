@@ -96,7 +96,23 @@ var makeBars = function(labeled_totals,start){
 		  .attr("width", function(d){ return x(d.Imports[i]); })
 		  .filter(function(d){ return d.Imports[i] > 0; });
 
-	}
+
+		d3.selectAll("rect")
+		  .data(labeled_totals)
+		  .on("mouseover", function(d){
+			  d3.select(this).attr("stroke", "red")
+			  				 .attr("stroke-width", "2px");
+			  //need to be able to get the current state of the model to display amount value
+			  console.log(d.Imports[0]);
+		  })
+
+		  .on("mouseout", function(d){
+			  d3.select(this).attr("stroke","none")
+			  				 .attr("stroke-width", "0px");
+			  //insert function to remove amount value from screen when mouse moves off it
+		  });
+
+  }
 
 };
 

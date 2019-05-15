@@ -38,13 +38,11 @@ Data.objects.forEach(function(d){
 
 //Add event listeners to the data type buttons
 var check = function(buttonID){
-	console.log(buttonID + " - Checked");
 	$("#"+buttonID).prop("checked");
 	$("#"+buttonID+"-label").addClass("active");
 };
 
 var uncheck = function(buttonID){
-	console.log(buttonID + " - Unchecked");
 	if (document.getElementById(buttonID).checked){
 		$("#"+buttonID).removeProp("checked");
 	}
@@ -121,7 +119,6 @@ var g = d3.select("#mapid")
 					  //if the chart hint is still up, get rid of it
 					  var hint = document.getElementById("chart-hint");
 					  if(document.body.contains(hint)){
-						  console.log("test correct");
 						  document.getElementById("chart-area").removeChild(hint);
 					  }
 

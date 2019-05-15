@@ -3,11 +3,7 @@ var make_TimeSeries = function(){
 	var margin = {top: 2, right: 2, bottom: 5, left: 25};
 
 	var width = document.getElementById("bottom").offsetWidth - margin.left - margin.right;
-	console.log(width);
-	console.log(document.getElementById("bottom").offsetWidth);
 	var height = document.getElementById("bottom").offsetHeight - margin.top - margin.bottom;
-	console.log(height);
-	console.log(document.getElementById("bottom").offsetHeight);
 
 	var parse_dates = function(date){
 		var new_date = date.slice(4,) + "-" + date.slice(0,4);
@@ -49,14 +45,6 @@ var make_TimeSeries = function(){
 	var line = d3.line()
 				  .x(function(d){ return x(d.date); })
 				  .y(function(d){ return y(d.price); });
-
-	// var marker_line = d3.line()
-	// 					.x(function(d){ return x(d.date); })
-	// 					.y(function(d){
-	// 						var max = d3.max(d.price);
-	// 						var arr = prices;
-	// 						return y(arr.fill(max,0,prices.length));
-	// 					});
 
 	//append an SVG element to the bottom bar, reshape it to the bottom dimensions, and append <g> tag with margins
 	var TS_svg = d3.select("#bottom")
@@ -110,17 +98,13 @@ var make_TimeSeries = function(){
 
 	//transition the marker line across of the time series
 	for(i=1; i<dates.length; i++){
-		console.log(i);
 		d3.select(".marker-line")
-		  //.data(dates)
 		  .transition()
 		  .duration(1500)
 		  .delay(1500*i)
 		  .ease(d3.easeLinear)
 		  .attr("x1", x(dates[i]))
 		  .attr("x2", x(dates[i]));
-		  // .attr("x1", function(d){ console.log(i); return x(d[i]); })
-		  // .attr("x2", function(d){ console.log(i); return x(d[i]); });
 	}
 
 };
