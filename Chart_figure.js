@@ -41,9 +41,12 @@ var sb_width = 300; barHeight = 20;
 
 var makeBars = function(labeled_totals,start){
 
+	//get the number of labels (e.g. countries/companies/products) for the ports
 	var n_labels = labeled_totals.length;
+	//get the number of imports in for the first port entry
 	var n_inc = labeled_totals[0].Imports.length;
 
+	//create a list of all possible labels
 	var all_vals = [];
 	labeled_totals.forEach(function(l){
 		all_vals = all_vals.concat(l.Imports);
