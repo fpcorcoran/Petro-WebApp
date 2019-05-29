@@ -2,9 +2,13 @@ This lists specifies the design steps neccessary to create a more interactive Pe
 
 GOALS:
 (repuired)
-1) The WTI crude oil index ticker should be clickable and dragable 
+1) The WTI crude oil index ticker should be clickable and dragable (CHECK) 
 2) Circle radii/colors should respond to the movement of the ticker accordingly
 3) Bar chart should respond to the movement of ticker accordingly
 4) Bar chart elements should show raw data value when moused over
 (optional)
 5) Bar chart elements should re-sort themselves on each transition so so that the largest value is on top
+
+THINGS TO TRY:
+1) size circles by area instead of radius
+2) size circles by percent of national total instead of gross imports

@@ -252,7 +252,15 @@ range.forEach(function(year){
 												 .ease(d3.easeLinear)
 												 //change the fill color and radius to next values in the series
                                                  .style("fill",function(d){ return d.circle.Color[year]; })
-                                                 .attr("r", function(d){ return d.circle.Imports[year]*0.01; });
+                                                 .attr("r", function(d){
+													 return d.circle.Imports[year]*0.01;
+													 // if(isNaN(d.circle.Imports[year])){
+														// console.log("Problem with " + d.circle.City);
+														// console.log(year);
+														// //return d.circle.Imports[year]*0.01;
+													 // }else{
+														//  return d.circle.Imports[year]*0.01;}
+													  });
 
 });
 

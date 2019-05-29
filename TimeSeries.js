@@ -29,9 +29,6 @@ var make_TimeSeries = function(){
 		data.push(new_entry);
 	}
 
-	//number of data points
-	var n = Object.keys(crude_prices).length;
-
 	//set up the x and y values - may need to parse dates from YYYYMM to MM-YYYY
 	var x = d3.scaleTime()
 			  .domain(d3.extent(dates))                  //domain of inputs
@@ -76,11 +73,25 @@ var make_TimeSeries = function(){
 		  	  .attr("class", "line")
 		  	  .attr("d", line(data));
 
+    //create invisible dots on the timeline - when moused over, will give the date
+	TS_svg.selectAll(".dot")
+	      .data(data)
+		  .enter().append("circle")
+		  .attr("class","dot")
+		  .attr("cx", function(d){ return x(d.date); })
+		  .attr("cy", function(d){ return y(d.price); })
+		  .attr("r", "3px")
+		  .style("fill-opacity",0.0)
+		  .on("click", function(d){
+			  console.log(d.date);
+		  });
+
 	//remove every other Y Axis label to avoid cluttering
 	d3.select(".y-axis").selectAll(".tick text")
 	  .attr("stroke-width", "1px")
 	  .attr("stroke","white")
 	  .attr("class",function(d,i){
+		  //remove
 		  if(i%3 != 0){
 			  d3.select(this).remove();
 		  }
@@ -92,61 +103,71 @@ var make_TimeSeries = function(){
 		  .attr("y1",0)
 		  .attr("x2",x(dates[0]))
 		  .attr("y1",height)
+		  .attr("T",1)
 		  .attr("stroke","red")
-		  .attr("stroke-width","2px")
+		  .attr("stroke-width","4px")
 		  .attr("class","marker-line");
 
+	//transition the marker line across of the time series
+	var marker_transition = function(start){
+		var T = 1;
+	  	for(i=start; i<dates.length; i++){
+	  		d3.select(".marker-line")
+	  		  .transition()
+	  		  .duration(1500)
+	  		  .delay(1500*T)
+	  		  .ease(d3.easeLinear)
+	  		  .attr("x1", x(dates[i]) )
+	  		  .attr("x2", x(dates[i]) );
+			T++;
+	  		}
+	  	};
 
+	marker_transition(1);
 
+    //find the index of the nearest value when marker is dragged/dropped on the timeline
+	var find_nearest = function(dragged_x){
+			//get the x-axis coordinate for all the dates
+			var x_dates = dates.map(function(d){ return x(d); });
 
+			//get the distance between each coordinate and the dragged_x
+			var dist = x_dates.map(function(d){ return Math.abs(d - dragged_x); });
 
+			//get the index of the smallest distance
+			return dist.indexOf(Math.min.apply(null,dist));
+	};
 
 	//make marker line clickable and dragable (needs to also return its time state)
-	d3.select("marker-line")
-	  .on("click", function() {
-  			var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+	var drag_line = d3.drag()
+					  .on("start",function(d){
+						  //Stop previous transition
+						  d3.select(".marker-line")
+						    .transition()
+							.duration(0);
+						  //make the line actively clickable
+						  d3.select(this)
+						    .raise()
+							.classed("active", true);
+					  })
+					  .on("drag",function(d){
+						  //get the date closest to the new x
+						  var new_x = dates[find_nearest(d3.event.x)];
+						  //set the x values to the x value of the closest x
+						  d3.select(this)
+						    .attr("x1", x(new_x))
+							.attr("x2", x(new_x));
+					  })
+					  .on("end",function(d){
+						  //restart the transition using that nearest index
+						  var index = find_nearest(this.getAttribute("x1"));
+      				      marker_transition(index);
 
-  			function dragMouseDown(e) {
-    			e = e || window.event;
-    			e.preventDefault();
-    			// get the mouse cursor position at startup:
-			    pos3 = e.clientX;
-			    pos4 = e.clientY;
-			    document.onmouseup = closeDragElement;
-			    // call a function whenever the cursor moves:
-			    document.onmousemove = elementDrag;
-			  }
+						  //deactivate marker
+						  d3.select(this)
+							.classed("active",false);
+					  });
 
-			  function elementDrag(e) {
-			    e = e || window.event;
-			    e.preventDefault();
-			    // calculate the new cursor position:
-			    pos1 = pos3 - e.clientX;
-			    pos2 = pos4 - e.clientY;
-			    pos3 = e.clientX;
-			    pos4 = e.clientY;
-			    // set the element's new position:
-			    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-			    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-			  }
-
-			  function closeDragElement() {
-			    // stop moving when mouse button is released:
-			    document.onmouseup = null;
-			    document.onmousemove = null;
-			  }
-		});
-	//transition the marker line across of the time series
-	for(i=1; i<dates.length; i++){
-		d3.select(".marker-line")
-		  .transition()
-		  .duration(1500)
-		  .delay(1500*i)
-		  .ease(d3.easeLinear)
-		  .attr("x1", x(dates[i]))
-		  .attr("x2", x(dates[i]));
-	}
-
-
+	d3.select(".marker-line")
+	  .call(drag_line);
 
 };
