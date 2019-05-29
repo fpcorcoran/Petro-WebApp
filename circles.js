@@ -1,5 +1,8 @@
-//Select the g element of the map svg and append a circle for each port
-var g = d3.select("#mapid")
+
+var make_circles = function(map, selected_city, start_time, cities){
+
+	//Select the g element of the map svg and append a circle for each port
+	var g = d3.select("#mapid")
 		  .select("svg")
 		  .select('g')
 		  .selectAll("circle")
@@ -20,72 +23,79 @@ var g = d3.select("#mapid")
 						 return "translate("+
 						 map.latLngToLayerPoint(d.LatLng).x +","+
 						 map.latLngToLayerPoint(d.LatLng).y +")";
-					 })
-		 //add click functionality for the circles
-		 .on("click", function(d){
+					 });
 
-			 		  selected_city = d.circle.City;
-
-					  //get bar chart info tags
-					  var title = document.getElementById("chart-title");
-					  var city_text = document.createTextNode(selected_city);
-
-					  //if the chart hint is still up, get rid of it
-					  var hint = document.getElementById("chart-hint");
-					  if(document.body.contains(hint)){
-						  document.getElementById("chart-area").removeChild(hint);
-					  }
-
-					  //if there is city already being displayed, remove it
-					  if(title.childNodes.length > 1){
-					  	title.removeChild(title.childNodes[1]);
-					  }
-
-					  //add the newly selected city to <p>Port: </p>
-					  title.appendChild(city_text);
-
-
-					  //when clicked, city will have a red outline, all other cities will have no outline
-					  d3.selectAll("circle").style("stroke","none");
-					  d3.select(this).style("stroke", "red")
-									 .style("stroke-width","2px");
-					  //when you click a city, the sidebar responds with the breakdown, based on radio button state
-					  var l;
-					  if( document.getElementById("country-button").checked){
-					  	  l = Get_By_Label(cities[selected_city][0]);
-
-					  } else if( document.getElementById("product-button").checked){
-					  	  l = Get_By_Label(cities[selected_city][1]);
-
-					  } else if( document.getElementById("company-button").checked){
-					  	  l = Get_By_Label(cities[selected_city][2]);
-
-					  }
-					  clearSidebar();
-					  makeBars(l,start_time);
-
-
-				  });
-
-//apply translation to circles, moving them to their location on map
-function update() {
+	//apply translation to circles, moving them to their location on map
+	function update() {
 	g.attr("transform",
 	function(d) {
-  		return "translate("+
-        	map.latLngToLayerPoint(d.LatLng).x +","+
-            map.latLngToLayerPoint(d.LatLng).y +")";
-    });
+			return "translate("+
+	    	map.latLngToLayerPoint(d.LatLng).x +","+
+	        map.latLngToLayerPoint(d.LatLng).y +")";
+	});
 
-}
+	}
 
-map.on("zoom",update);
+	map.on("zoom",update);
+
+	console.log("inner ",start_time);
+	return g;
+};
+
+var select_circle = function(g, start_time){
+	//add click functionality for the circles
+	g.on("click", function(d){
+
+				 selected_city = d.circle.City;
+
+				 //get bar chart info tags
+				 var title = document.getElementById("chart-title");
+				 var city_text = document.createTextNode(selected_city);
+
+				 //if the chart hint is still up, get rid of it
+				 var hint = document.getElementById("chart-hint");
+				 if(document.body.contains(hint)){
+					 document.getElementById("chart-area").removeChild(hint);
+				 }
+
+				 //if there is city already being displayed, remove it
+				 if(title.childNodes.length > 1){
+				   title.removeChild(title.childNodes[1]);
+				 }
+
+				 //add the newly selected city to <p>Port: </p>
+				 title.appendChild(city_text);
 
 
-//equivalent of range(len(precipitation))
-var range = Array.from(Array(Data.objects[0].circle.Precip.length).keys());
+				 //when clicked, city will have a red outline, all other cities will have no outline
+				 d3.selectAll("circle").style("stroke","none");
+				 d3.select(this).style("stroke", "red")
+								.style("stroke-width","2px");
+				 //when you click a city, the sidebar responds with the breakdown, based on radio button state
+				 var l;
+				 if( document.getElementById("country-button").checked){
+					 l = Get_By_Label(cities[selected_city][0]);
 
-//create a transition for the circles between each month in the time series (color, radius)
-range.forEach(function(year){
+				 } else if( document.getElementById("product-button").checked){
+					 l = Get_By_Label(cities[selected_city][1]);
+
+				 } else if( document.getElementById("company-button").checked){
+					 l = Get_By_Label(cities[selected_city][2]);
+
+				 }
+				 clearSidebar();
+				 makeBars(l,start_time);
+
+
+			 });
+};
+
+var circle_transitions = function(){
+	//equivalent of range(len(precipitation))
+	var range = Array.from(Array(Data.objects[0].circle.Precip.length).keys());
+
+	//create a transition for the circles between each month in the time series (color, radius)
+	range.forEach(function(year){
 
 	setTimeout(function(){
 		start_time = year;
@@ -116,7 +126,7 @@ range.forEach(function(year){
 	},1500*year);
 
 	d3.select("#mapid").select("svg").select("g").selectAll("circle")
-                                               	 .data(Data.objects)
+	                                           	 .data(Data.objects)
 												 // //add click functionality for the circles
 												 // .on("click", function(d){
 													//  		  selected_city = d.circle.City;
@@ -139,7 +149,7 @@ range.forEach(function(year){
 													// 		  }
 													// 		  makeBars(l,year);
 													//   })
-                                                 .transition()
+	                                             .transition()
 												 //duration of each transition is 1500 milliseconds
 												 .duration(1500)
 												 //each transition must be delayed by an incrementing value or all...
@@ -148,7 +158,8 @@ range.forEach(function(year){
 												 //make them look smoother
 												 .ease(d3.easeLinear)
 												 //change the fill color and radius to next values in the series
-                                                 .style("fill",function(d){ return d.circle.Color[year]; })
-                                                 .attr("r", function(d){ return d.circle.Imports[year]*0.01; });
+	                                             .style("fill",function(d){ return d.circle.Color[year]; })
+	                                             .attr("r", function(d){ return d.circle.Imports[year]*0.01; });
 
-});
+	});
+};

@@ -110,7 +110,7 @@ var make_TimeSeries = function(){
 
 	//transition the marker line across of the time series
 	var marker_transition = function(start){
-		var T = 1;
+		var T = 0;
 	  	for(i=start; i<dates.length; i++){
 	  		d3.select(".marker-line")
 	  		  .transition()
@@ -151,11 +151,11 @@ var make_TimeSeries = function(){
 					  })
 					  .on("drag",function(d){
 						  //get the date closest to the new x
-						  var new_x = dates[find_nearest(d3.event.x)];
+						  time_state = dates[find_nearest(d3.event.x)];
 						  //set the x values to the x value of the closest x
 						  d3.select(this)
-						    .attr("x1", x(new_x))
-							.attr("x2", x(new_x));
+						    .attr("x1", x(time_state))
+							.attr("x2", x(time_state));
 					  })
 					  .on("end",function(d){
 						  //restart the transition using that nearest index
