@@ -44,30 +44,65 @@ var Get_TimeSeries = function(countries){
 	return Object.values(all_totals);
 };
 
+var Get_All_Dates = function(cities){
+	var lengths = [];
+	Object.values(cities).forEach(function(city){
+		_.each(city, function(type){
+			lengths = lengths.concat(Object.keys(type));
+		});
+	});
+	lengths = Array.from(new Set(lengths));
+	return lengths;
+};
+
+/*
+ * Function for organizing all the data from all cities into a single object
+ * Data = {objects:[circle:{City:"Name",
+ * 						    Precip:[...],
+ * 						    Imports:[...],
+ *						    Color:[...],
+ *						    YearMonth:[...],
+ *						    coordinates:[...]},
+ *				    circle:{...}
+ *			        circle: {...}]
+ *		    }
+ */
 
 var Organize = function(list,cities) {
-
+  //create a color scale from the domain of the data
   var f = chroma.scale(['#B22222','#EEC900','#228FCF','#0000ff']).domain([0,50,150,275]);
 
+  //create an object to hold the final data output from each city
   var Data = {"objects":[]};
 
+  //for each city in the list, parse its data
   _.each(list, function(obj) {
 
+	//subobject for holding current city data
 	var sub_obj = {};
+	//get the name of the city
     var city = obj.City;
+	//get the lat/lon of the city
     var geo = JSON.parse(obj[".geo"]).coordinates;
+	//initialize array to hold precipitation
     var precip = [];
+	//initialize array to hold year
     var years = [];
 
+	//loop through years of the data
     for (year = 198601; year < 201612; year++){
+	  //conver the year to a string
       y = year.toString();
+	  //test if that is a year in the data
       if(obj[y] != null){
         years.push(y);
         precip.push(obj[y]);
       }
     }
+	//map a color from the predefined scale to the precipitation of each year
     var color = _.map(precip, function(p){ return chroma(f(p)._rgb).hex(); });
 
+	//populate the subobject with the parsed data for each category
     sub_obj.circle = {"City":city,
                "Precip":precip,
 			   "Imports":Get_TimeSeries(cities[city]),
@@ -75,6 +110,7 @@ var Organize = function(list,cities) {
                "YearMonth": years,
                "coordinates":[geo[1],geo[0]]};
 
+	  //push the subobject of the current city to the object responsible for holding all the data
 	  Data.objects.push(sub_obj);
   });
   return Data;

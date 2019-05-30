@@ -1,4 +1,3 @@
-
 var make_circles = function(map, start){
 
 	//Select the g element of the map svg and append a circle for each port
