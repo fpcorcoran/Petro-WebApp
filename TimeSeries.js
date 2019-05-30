@@ -1,4 +1,4 @@
-var make_TimeSeries = function(){
+var make_TimeSeries = function(dispatch_statechange){
 
 	var margin = {top: 2, right: 2, bottom: 5, left: 25};
 
@@ -103,15 +103,17 @@ var make_TimeSeries = function(){
 		  .attr("y1",0)
 		  .attr("x2",x(dates[0]))
 		  .attr("y1",height)
-		  .attr("T",1)
 		  .attr("stroke","red")
 		  .attr("stroke-width","4px")
-		  .attr("class","marker-line");
+		  .attr("class","marker-line")
+		  .attr("id","marker-line");
 
 	//transition the marker line across of the time series
 	var marker_transition = function(start){
 		var T = 0;
 	  	for(i=start; i<dates.length; i++){
+			//console.log("marker transition state: ", T);
+
 	  		d3.select(".marker-line")
 	  		  .transition()
 	  		  .duration(1500)
@@ -162,6 +164,8 @@ var make_TimeSeries = function(){
 						  var index = find_nearest(this.getAttribute("x1"));
       				      marker_transition(index);
 
+						  dispatch_statechange(index);
+
 						  //deactivate marker
 						  d3.select(this)
 							.classed("active",false);
@@ -169,5 +173,7 @@ var make_TimeSeries = function(){
 
 	d3.select(".marker-line")
 	  .call(drag_line);
+
+	  return time_state;
 
 };

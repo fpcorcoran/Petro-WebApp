@@ -107,12 +107,28 @@ $("#company-button").on("click", function(){
  * CREATE THE TIME SERIES AND MARKER
  */
 
-
+//Create dispatch event "statechange" - this can dispatch the change in timeseries to the map & chart
 var dispatch = d3.dispatch("statechange");
 
-dispatch.on("statechange", function(){console.log(this); });
+//package dispatch events into a function so they can be passed to make_TimeSeries
+var call_dispatch = function(index){
+	//define dispatch behavior - both called by the make_TimeSeries() function
+	dispatch.on("statechange.chart", function(){console.log(time_state);
+	});
 
-make_TimeSeries();
+	//dispatch the circle event
+	dispatch.on("statechange.circles", function(){
+		console.log("entered circle dispatch");
+		make_circles(map,index);
+	});
+
+	//call the dispatch
+	dispatch.call("statechange");
+
+};
+
+var time_state = make_TimeSeries(call_dispatch);
+
 
 
 /*
@@ -120,11 +136,11 @@ make_TimeSeries();
  */
 
 
-var g = make_circles(map);
+make_circles(map, 0);
 
-circle_transitions();
+//circle_transitions();
 
-select_circle(g);
+//select_circle(g);
 
 /*
  * MAKE BAR CHART BASED ON TIME SERIES MARKER
