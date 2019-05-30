@@ -37,6 +37,8 @@ var make_circles = function(map, start){
 	}
 
 	map.on("zoom",update);
+
+
 	var circle_transition = function(start){
 		var T = 0;
 		for (i=start; i<Data.objects.length; i++){

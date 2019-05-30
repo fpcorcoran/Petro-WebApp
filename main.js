@@ -21,6 +21,9 @@ baseMap = L.tileLayer(basemapURL, {
   ext: 'png',
 }).addTo(map);
 
+//reset map with button
+var map_button = document.getElementById("map-reset-button").addEventListener("click", function(){
+	map.setView([35, -107],4.45); });
 
 /*
  * SET UP DATA

@@ -164,8 +164,11 @@ var make_TimeSeries = function(dispatch_statechange){
 						  var index = find_nearest(this.getAttribute("x1"));
       				      marker_transition(index);
 
+						  //dispatch new time state to chart & map
 						  dispatch_statechange(index);
 
+						  //change city name
+						  
 						  //deactivate marker
 						  d3.select(this)
 							.classed("active",false);
