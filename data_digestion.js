@@ -33,27 +33,67 @@ var cities = {
 			  "Wilmington": [WILMINGTON_CNTRY_NAME,WILMINGTON_PROD_NAME,WILMINGTON_R_S_NAME]
 		     };
 
-
-var Get_TimeSeries = function(countries){
-	var all_totals = {};
-	Object.keys(countries).forEach(function(year){
-		Object.keys(countries[year]).forEach(function(cntry){
-			all_totals[year] = countries[year][cntry]["Total"];
-	 	});
-	});
-	return Object.values(all_totals);
-};
+/*
+* function for getting all the dates of record in the data - used to handle missing records for each
+* city so that all unrecorded dates are filled with import volume = 0
+*/
 
 var Get_All_Dates = function(cities){
+	//initialize array to hold all dates of all cities
 	var lengths = [];
+	//loop through each city
 	Object.values(cities).forEach(function(city){
+		//loop through each file (data type) for each city
 		_.each(city, function(type){
+			//concatenate all the recorded years for each type into master list
 			lengths = lengths.concat(Object.keys(type));
 		});
 	});
-	lengths = Array.from(new Set(lengths));
-	return lengths;
+	//return an array from the lengths containing only unique values (e.g. every distinct year on record, all cities)
+	return Array.from(new Set(lengths));
 };
+
+var Get_TimeSeries = function(city_list){
+
+	//collect all possible dates
+	var all_dates = Get_All_Dates(cities);
+
+	//isolate the CNTRY_NAME dataset for the city
+	var countries = city_list[0];
+	//console.log(Object.keys(countries["198601"]));
+
+	var time_series = [];
+
+	all_dates.forEach(function(date){
+		if (Array.isArray(countries[date])){
+			console.log(countries[date]);
+		}
+
+		var total = 0;
+		if(countries[date] != null){
+			Object.values(countries[date]).forEach(function(c){
+				total = total + c.Total;
+			});
+			time_series.push(total);
+		}
+		else{
+			time_series.push(total);
+		}
+	});
+
+	return time_series;
+};
+
+// var Get_TimeSeries = function(countries){
+// 	var all_totals = {};
+// 	Object.keys(countries).forEach(function(year){
+// 		Object.keys(countries[year]).forEach(function(cntry){
+// 			all_totals[year] = countries[year][cntry]["Total"];
+// 	 	});
+// 	});
+// 	return Object.values(all_totals);
+// };
+
 
 /*
  * Function for organizing all the data from all cities into a single object
@@ -75,9 +115,9 @@ var Organize = function(list,cities) {
   //create an object to hold the final data output from each city
   var Data = {"objects":[]};
 
+  var all_dates = Get_All_Dates(cities);
   //for each city in the list, parse its data
   _.each(list, function(obj) {
-
 	//subobject for holding current city data
 	var sub_obj = {};
 	//get the name of the city
@@ -89,16 +129,18 @@ var Organize = function(list,cities) {
 	//initialize array to hold year
     var years = [];
 
-	//loop through years of the data
-    for (year = 198601; year < 201612; year++){
-	  //conver the year to a string
-      y = year.toString();
+	//loop through all dates in the data
+    _.forEach(all_dates, function(y){
 	  //test if that is a year in the data
       if(obj[y] != null){
         years.push(y);
         precip.push(obj[y]);
-      }
-    }
+	} else{
+		years.push(0);
+		precip.push(0);
+	}
+    });
+
 	//map a color from the predefined scale to the precipitation of each year
     var color = _.map(precip, function(p){ return chroma(f(p)._rgb).hex(); });
 

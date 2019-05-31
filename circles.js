@@ -1,4 +1,4 @@
-var make_circles = function(map, start){
+var make_circles = function(map, start, zoomLevel){
 
 	//Select the g element of the map svg and append a circle for each port
 	var g = d3.select("#mapid")
@@ -15,7 +15,7 @@ var make_circles = function(map, start){
 		  .style("pointer-events","visible")
 		  //set circle fill color and radius based on values in data
 		  .style("fill", function(d){ return d.circle.Color[0]; })
-		  .attr("r", function(d){ return d.circle.Imports[0]*0.01; })	//look for better way to do this
+		  .attr("r", function(d){ return d.circle.Imports[0]*0.001; })	//look for better way to do this
 		  .attr("id", function(d){ return d.circle.City; })
 		  //translate the circles so that their centers align with the lat/long of their respective city
 		  .attr("transform", function(d) {
@@ -41,7 +41,6 @@ var make_circles = function(map, start){
 	var circle_transition = function(start){
 		var T = 0;
 		for (i=start; i<Data.objects.length; i++){
-			console.log("circle transition state: ", T);
 
 		   	 g.data(Data.objects)
 		     .transition()
@@ -54,7 +53,7 @@ var make_circles = function(map, start){
 			 .ease(d3.easeLinear)
 			 //change the fill color and radius to next values in the series
 		     .style("fill",function(d){ return d.circle.Color[i]; })
-		     .attr("r", function(d){ return d.circle.Imports[i]*0.01; });
+		     .attr("r", function(d){ return d.circle.Imports[i]*0.001; });
 			T++;
 	    }
 	};

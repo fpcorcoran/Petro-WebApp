@@ -37,7 +37,7 @@ Object.keys(cities).forEach(function(city){
 });
 
 //Organize Data from precipitation
-var Data = Organize(precip2, c);
+var Data = Organize(precip2, cities);
 
 //Create SVG element inside map
 L.svg().addTo(map);
@@ -139,7 +139,7 @@ var time_state = make_TimeSeries(call_dispatch);
  */
 
 
-make_circles(map, 0);
+make_circles(map, 0, map.getZoom());
 
 //circle_transitions();
 
