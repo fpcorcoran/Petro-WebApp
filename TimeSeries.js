@@ -1,14 +1,19 @@
 var make_TimeSeries = function(dispatch_statechange){
 
+	//Set up margins of graph axes - need to make room for tick labels
 	var margin = {top: 2, right: 2, bottom: 5, left: 25};
 
+	//Set up dimensions of the graph
 	var width = document.getElementById("bottom").offsetWidth - margin.left - margin.right;
 	var height = document.getElementById("bottom").offsetHeight - margin.top - margin.bottom;
 
+	//parse dates - have to be formatted as d3 datetime in order to create a time scale
 	var parse_dates = function(date){
+		//first 4 chars = YYYY, last 2 chars = MM (e.g. 1986-01)
 		var new_date = date.slice(4,) + "-" + date.slice(0,4);
+		//parse to d3 datetime object
 		var parse_time = d3.timeParse("%m-%Y");
-		var format = d3.timeFormat("%b-%Y");
+
 		return parse_time(new_date);
 	};
 
@@ -31,7 +36,7 @@ var make_TimeSeries = function(dispatch_statechange){
 
 	//set up the x and y values - may need to parse dates from YYYYMM to MM-YYYY
 	var x = d3.scaleTime()
-			  .domain(d3.extent(dates))                  //domain of inputs
+			  .domain(d3.extent(dates))                  	  //domain of inputs
 			  .range([0, width]);                             //range of outputs
 
 	var y = d3.scaleLinear()
@@ -139,6 +144,13 @@ var make_TimeSeries = function(dispatch_statechange){
 			return dist.indexOf(Math.min.apply(null,dist));
 	};
 
+	/*
+	 * When the line is dragged, events need to be dispatched to:
+	 * 1) The bar chart
+	 * 2) The map circles
+	 * 3) The Date: MM-YYYY
+	 */
+
 	//make marker line clickable and dragable (needs to also return its time state)
 	var drag_line = d3.drag()
 					  .on("start",function(d){
@@ -158,17 +170,34 @@ var make_TimeSeries = function(dispatch_statechange){
 						  d3.select(this)
 						    .attr("x1", x(time_state))
 							.attr("x2", x(time_state));
+
+						  //make circles change as time marker drags
+						  var index = find_nearest(this.getAttribute("x1"));
+						  clear_circles();
+						  make_circles(map,index,4);
+
 					  })
 					  .on("end",function(d){
 						  //restart the transition using that nearest index
 						  var index = find_nearest(this.getAttribute("x1"));
       				      marker_transition(index);
 
+
+
+
+
+
 						  //dispatch new time state to chart & map
-						  dispatch_statechange(index);
+						  //dispatch_statechange(index);
+
+
+
 
 						  //change city name
-						  
+
+
+
+
 						  //deactivate marker
 						  d3.select(this)
 							.classed("active",false);

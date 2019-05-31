@@ -14,8 +14,8 @@ var make_circles = function(map, start, zoomLevel){
 		  //make the circles clickable (necessary?)
 		  .style("pointer-events","visible")
 		  //set circle fill color and radius based on values in data
-		  .style("fill", function(d){ return d.circle.Color[0]; })
-		  .attr("r", function(d){ return d.circle.Imports[0]*0.0025; })	//look for better way to do this
+		  .style("fill", function(d){ return d.circle.Color[start]; })
+		  .attr("r", function(d){ return d.circle.Imports[start]*0.0025; })	//look for better way to do this
 		  .attr("id", function(d){ return d.circle.City; })
 		  //translate the circles so that their centers align with the lat/long of their respective city
 		  .attr("transform", function(d) {
@@ -168,4 +168,8 @@ var circle_transitions = function(){
 	                                             .attr("r", function(d){ return d.circle.Imports[year]*0.01; });
 
 	});
+};
+
+var clear_circles = function(){
+	d3.selectAll("circle").remove();
 };

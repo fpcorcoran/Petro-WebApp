@@ -121,8 +121,8 @@ var call_dispatch = function(index){
 
 	//dispatch the circle event
 	dispatch.on("statechange.circles", function(){
-		console.log("entered circle dispatch");
-		make_circles(map,index);
+		clear_circles();
+		make_circles(map,index,map.getZoom());
 	});
 
 	//call the dispatch
@@ -139,7 +139,7 @@ var time_state = make_TimeSeries(call_dispatch);
  */
 
 
-make_circles(map, 0, map.getZoom());
+//make_circles(map, 0, map.getZoom());
 
 //circle_transitions();
 
