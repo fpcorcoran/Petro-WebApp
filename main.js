@@ -107,7 +107,7 @@ $("#company-button").on("click", function(){
 
 
 /*
- * CREATE THE TIME SERIES AND MARKER
+ * CREATE THE TIME SERIES AND MARKER LINE
  */
 
 //Create dispatch event "statechange" - this can dispatch the change in timeseries to the map & chart

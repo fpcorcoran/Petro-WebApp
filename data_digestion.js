@@ -34,8 +34,7 @@ var cities = {
 		     };
 
 /*
-* function for getting all the dates of record in the data - used to handle missing records for each
-* city so that all unrecorded dates are filled with import volume = 0
+* function for getting all the unique dates of record in the data
 */
 
 var Get_All_Dates = function(cities){
@@ -53,6 +52,11 @@ var Get_All_Dates = function(cities){
 	return Array.from(new Set(lengths));
 };
 
+/*
+ * function for creating a time series of total import volume for a given city dataset - used to create the
+ * radius of the circles for each transition.
+ * Note: if a date is not recorded for that port, a volume of 0 is assumed
+ */
 var Get_TimeSeries = function(city_list){
 
 	//collect all possible dates
@@ -60,40 +64,33 @@ var Get_TimeSeries = function(city_list){
 
 	//isolate the CNTRY_NAME dataset for the city
 	var countries = city_list[0];
-	//console.log(Object.keys(countries["198601"]));
 
+	//set up array to hold import totals
 	var time_series = [];
 
+	//loop through all dates
 	all_dates.forEach(function(date){
-		if (Array.isArray(countries[date])){
-			console.log(countries[date]);
-		}
 
+		//initialize a total starting at zero
 		var total = 0;
+		//check if there is a record for that city on that date
 		if(countries[date] != null){
+			//loop through shipments broken down by country
 			Object.values(countries[date]).forEach(function(c){
+				//add the total on that date from each country to the total variable
 				total = total + c.Total;
 			});
+			//push the newly calculated total to the time series
 			time_series.push(total);
 		}
 		else{
+			//if the date is not on record for that city, push the total anyways (will push a 0 to the time series)
 			time_series.push(total);
 		}
 	});
 
 	return time_series;
 };
-
-// var Get_TimeSeries = function(countries){
-// 	var all_totals = {};
-// 	Object.keys(countries).forEach(function(year){
-// 		Object.keys(countries[year]).forEach(function(cntry){
-// 			all_totals[year] = countries[year][cntry]["Total"];
-// 	 	});
-// 	});
-// 	return Object.values(all_totals);
-// };
-
 
 /*
  * Function for organizing all the data from all cities into a single object

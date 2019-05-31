@@ -15,7 +15,7 @@ var make_circles = function(map, start, zoomLevel){
 		  .style("pointer-events","visible")
 		  //set circle fill color and radius based on values in data
 		  .style("fill", function(d){ return d.circle.Color[0]; })
-		  .attr("r", function(d){ return d.circle.Imports[0]*0.001; })	//look for better way to do this
+		  .attr("r", function(d){ return d.circle.Imports[0]*0.0025; })	//look for better way to do this
 		  .attr("id", function(d){ return d.circle.City; })
 		  //translate the circles so that their centers align with the lat/long of their respective city
 		  .attr("transform", function(d) {
@@ -40,7 +40,7 @@ var make_circles = function(map, start, zoomLevel){
 
 	var circle_transition = function(start){
 		var T = 0;
-		for (i=start; i<Data.objects.length; i++){
+		for (i=start; i<Data.objects[0].circle.Imports.length; i++){
 
 		   	 g.data(Data.objects)
 		     .transition()
@@ -53,7 +53,7 @@ var make_circles = function(map, start, zoomLevel){
 			 .ease(d3.easeLinear)
 			 //change the fill color and radius to next values in the series
 		     .style("fill",function(d){ return d.circle.Color[i]; })
-		     .attr("r", function(d){ return d.circle.Imports[i]*0.001; });
+		     .attr("r", function(d){ return d.circle.Imports[i]*0.0025; });
 			T++;
 	    }
 	};
