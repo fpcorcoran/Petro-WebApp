@@ -135,6 +135,20 @@
   z-index: 4;
 }
 
+#tip-box {
+	position: absolute;
+    text-align: center;
+    width: 60px;
+    height: 28px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+	z-index: 5;
+}
+
 
 /*
  * Style for button elements

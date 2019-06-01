@@ -52,56 +52,9 @@ Data.objects.forEach(function(d){
  * SET UP RADIO BUTTONS FOR COMPANY/COUNTRY/PRODUCT
  */
 
+ //Get the current state of the model selection
+ var selected_city;
 
-//Add event listeners to the data type buttons
-var check = function(buttonID){
-	$("#"+buttonID).prop("checked");
-	$("#"+buttonID+"-label").addClass("active");
-};
-
-var uncheck = function(buttonID){
-	if (document.getElementById(buttonID).checked){
-		$("#"+buttonID).removeProp("checked");
-	}
-	$("#"+buttonID+"-label").removeClass("active");
-};
-
-//Get the current state of the model selection
-var selected_city;
-
-//Countries button interactivity
-$("#country-button").on("click", function(){
-
-	uncheck("product-button");
-	uncheck("company-button");
-	check("country-button");
-
-	clearSidebar();
-	makeBars(Get_By_Label(cities[selected_city][0]),start_time);
-});
-
-//Products button interactivity
-$("#product-button").on("click", function(){
-
-	check("product-button");
-	uncheck("company-button");
-	uncheck("country-button");
-
-	clearSidebar();
-	makeBars(Get_By_Label(cities[selected_city][1]),start_time);
-
-});
-
-//Companies button interactivity
-$("#company-button").on("click", function(){
-
-	uncheck("product-button");
-	check("company-button");
-	uncheck("country-button");
-
-	clearSidebar();
-	makeBars(Get_By_Label(cities[selected_city][2]),start_time);
-});
 
 
 /*
@@ -117,6 +70,7 @@ var call_dispatch = function(index){
 	dispatch.on("statechange.circles", function(){
 		clear_circles();
 		selected_city = make_circles(map,index,map.getZoom());
+		make_buttons(selected_city, index);
 	});
 
 	//define dispatch behavior - both called by the make_TimeSeries() function

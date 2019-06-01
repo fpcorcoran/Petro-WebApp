@@ -78,17 +78,36 @@ var make_TimeSeries = function(dispatch_statechange){
 		  	  .attr("class", "line")
 		  	  .attr("d", line(data));
 
-    //create invisible dots on the timeline - when moused over, will give the date
+	//create invisible popup tip box to show on mouseover of timeseries
+	var tip_box = d3.select("body")
+					.append("div")
+					.attr("id", "tip-box")
+					.style("opacity", 0);
+
+    //create invisible dots on the timeline - when moused over, will give the date & price in popup
 	TS_svg.selectAll(".dot")
 	      .data(data)
 		  .enter().append("circle")
 		  .attr("class","dot")
 		  .attr("cx", function(d){ return x(d.date); })
 		  .attr("cy", function(d){ return y(d.price); })
-		  .attr("r", "3px")
-		  .style("fill-opacity",0.0)
-		  .on("click", function(d){
-			  console.log(d.date);
+		  .attr("r", "4px")
+		  .style("opacity",0.0)
+		  .on("mouseover", function(d){
+			  var h = document.getElementById("tip-box").offsetHeight;
+			  var f = d3.timeFormat("%b-%Y");
+
+			  tip_box.transition()
+			  		 .duration(200)
+					 .style("opacity",0.9);
+			  tip_box.html(f(d.date) + "<br/>" + d.price.toFixed(3))
+			  		 .style("left", (d3.event.pageX) + "px")
+					 .style("top", (d3.event.pageY - h) + "px");
+		  })
+		  .on("mouseout",function(d){
+			  tip_box.transition()
+			  		 .duration(200)
+					 .style("opacity", 0);
 		  });
 
 	//remove every other Y Axis label to avoid cluttering
@@ -117,8 +136,6 @@ var make_TimeSeries = function(dispatch_statechange){
 	var marker_transition = function(start){
 		var T = 0;
 	  	for(i=start; i<dates.length; i++){
-			//console.log("marker transition state: ", T);
-
 	  		d3.select(".marker-line")
 	  		  .transition()
 	  		  .duration(1500)

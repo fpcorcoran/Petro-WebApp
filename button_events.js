@@ -16,9 +16,6 @@ var uncheck = function(buttonID){
 	$("#"+buttonID+"-label").removeClass("active");
 };
 
-//Get the current state of the model selection
-var selected_city;
-
 //Add event listeners to the data type buttons
 var make_buttons = function(selected_city, index){
 	//Countries button interactivity
