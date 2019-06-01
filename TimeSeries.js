@@ -171,32 +171,17 @@ var make_TimeSeries = function(dispatch_statechange){
 						    .attr("x1", x(time_state))
 							.attr("x2", x(time_state));
 
-						  //make circles change as time marker drags
+						  //delete and remake circles as the marker line moves
 						  var index = find_nearest(this.getAttribute("x1"));
-						  clear_circles();
-						  make_circles(map,index,4);
+						  call_dispatch(index);
 
 					  })
 					  .on("end",function(d){
 						  //restart the transition using that nearest index
 						  var index = find_nearest(this.getAttribute("x1"));
+
+						  //marker starts moving again when drag stops
       				      marker_transition(index);
-
-
-
-
-
-
-						  //dispatch new time state to chart & map
-						  //dispatch_statechange(index);
-
-
-
-
-						  //change city name
-
-
-
 
 						  //deactivate marker
 						  d3.select(this)
@@ -206,6 +191,5 @@ var make_TimeSeries = function(dispatch_statechange){
 	d3.select(".marker-line")
 	  .call(drag_line);
 
-	  return time_state;
 
 };

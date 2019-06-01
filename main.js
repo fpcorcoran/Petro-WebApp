@@ -68,8 +68,6 @@ var uncheck = function(buttonID){
 
 //Get the current state of the model selection
 var selected_city;
-var start_time;
-var time_state;
 
 //Countries button interactivity
 $("#country-button").on("click", function(){
@@ -107,7 +105,7 @@ $("#company-button").on("click", function(){
 
 
 /*
- * CREATE THE TIME SERIES AND MARKER LINE
+ * CREATE THE TIME SERIES AND MARKER LINE ON PAGE LOAD
  */
 
 //Create dispatch event "statechange" - this can dispatch the change in timeseries to the map & chart
@@ -115,35 +113,36 @@ var dispatch = d3.dispatch("statechange");
 
 //package dispatch events into a function so they can be passed to make_TimeSeries
 var call_dispatch = function(index){
-	//define dispatch behavior - both called by the make_TimeSeries() function
-	dispatch.on("statechange.chart", function(){console.log(time_state);
-	});
-
 	//dispatch the circle event
 	dispatch.on("statechange.circles", function(){
 		clear_circles();
-		make_circles(map,index,map.getZoom());
+		selected_city = make_circles(map,index,map.getZoom());
 	});
+
+	//define dispatch behavior - both called by the make_TimeSeries() function
+	dispatch.on("statechange.chart", function(){
+		clearSidebar();
+		makeBars(Get_By_Label(selected_city), index);
+	});
+
+
 
 	//call the dispatch
 	dispatch.call("statechange");
 
 };
 
-var time_state = make_TimeSeries(call_dispatch);
+//make the time series - will dispatch events to circles and chart
+make_TimeSeries(call_dispatch);
 
 
 
 /*
- * CREATE THE CIRCLES BASED ON TIME SERIES MARKER
+ * CREATE THE CIRCLES ON PAGE LOAD
  */
 
+make_circles(map, 0, map.getZoom());
 
-//make_circles(map, 0, map.getZoom());
-
-//circle_transitions();
-
-//select_circle(g);
 
 /*
  * MAKE BAR CHART BASED ON TIME SERIES MARKER

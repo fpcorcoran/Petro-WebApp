@@ -2,7 +2,7 @@
 var Get_By_Label = function(data){
 	var labels = [];
 
-	//append all the labels to the lables list from all the dates
+	//append all the labels to the labels list from all the dates
 	Object.keys(data).forEach(function(d){
 		labels = labels.concat(Object.keys(data[d]));
 	});
