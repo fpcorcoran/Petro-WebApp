@@ -68,7 +68,7 @@ var make_TimeSeries = function(dispatch_statechange){
 	//append X Axis
 	TS_svg.append("g")
 		  .attr("class", "x-axis")
-		  .attr("transform", "translate(0,0"+")")
+		  .attr("transform", "translate(0,0)")
 		  .attr("stroke","white")
 		  .call(d3.axisBottom(x));
 

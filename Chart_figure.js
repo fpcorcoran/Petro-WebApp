@@ -8,6 +8,7 @@ var Get_By_Label = function(data){
 	});
 
 	//convert the labels array to a set, automatically erasing all duplicate labels
+	// Note To Self: "new" is for constructing, not dynamic assignment (no need to clean up this var)
 	var u_labels = new Set(labels);
 
 	//add a key to the labeled_totals object for each unique label and match with an empty array
@@ -89,33 +90,40 @@ var makeBars = function(labeled_totals,start){
 		})
 		.filter(function(d){ return d.Imports[start] > 0; });
 
-	for(i=start; i < n_inc; i++){
-		d3.selectAll("rect")
-		  .data(labeled_totals)
-		  .transition()
-		  .duration(1500)
-		  .delay(1500*i)
-		  .ease(d3.easeLinear)
-		  .attr("width", function(d){ return x(d.Imports[i]); })
-		  .filter(function(d){ return d.Imports[i] > 0; });
-
-
 		d3.selectAll("rect")
 		  .data(labeled_totals)
 		  .on("mouseover", function(d){
 			  d3.select(this).attr("stroke", "red")
-			  				 .attr("stroke-width", "2px");
+							 .attr("stroke-width", "2px");
 			  //need to be able to get the current state of the model to display amount value
 			  console.log(d.Imports[0]);
 		  })
 
 		  .on("mouseout", function(d){
 			  d3.select(this).attr("stroke","none")
-			  				 .attr("stroke-width", "0px");
+							 .attr("stroke-width", "0px");
 			  //insert function to remove amount value from screen when mouse moves off it
 		  });
 
-  }
+
+
+	var bar_transition = function(start){
+		T=0;
+		for(i=start; i < n_inc; i++){
+			d3.selectAll("rect")
+			  .data(labeled_totals)
+			  .transition()
+			  .duration(1500)
+			  .delay(1500*T)
+			  .ease(d3.easeLinear)
+			  .attr("width", function(d){ return x(d.Imports[i]); })
+			  .filter(function(d){ return d.Imports[i] > 0; });
+			 T++;
+
+  		}
+	};
+
+	bar_transition(start);
 
 };
 

@@ -11,6 +11,7 @@ GOALS:
 4) Bar chart elements should show raw data value when moused over
 (optional)
 5) Bar chart elements should re-sort themselves on each transition so so that the largest value is on top
+6) Popup window should appear on timeseries when moused over, showing date and WTI index value (CHECK)
 
 THINGS TO TRY:
 1) size circles by area instead of radius

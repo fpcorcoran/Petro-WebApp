@@ -59,120 +59,64 @@ var make_circles = function(map, start, zoomLevel){
 	    }
 	};
 
-	var select_circle = function(g, start_time){
-		//add click functionality for the circles
-		g.on("click", function(d){
-
-					 var selected_city = d.circle.City;
-
-					 //get bar chart info tags
-					 var title = document.getElementById("chart-title");
-					 var city_text = document.createTextNode(selected_city);
-
-					 //if the chart hint is still up, get rid of it
-					 var hint = document.getElementById("chart-hint");
-					 if(document.body.contains(hint)){
-						 document.getElementById("chart-area").removeChild(hint);
-					 }
-
-					 //if there is city already being displayed, remove it
-					 if(title.childNodes.length > 1){
-					   title.removeChild(title.childNodes[1]);
-					 }
-
-					 //add the newly selected city to <p>Port: </p>
-					 title.appendChild(city_text);
-
-
-					 //when clicked, city will have a red outline, all other cities will have no outline
-					 d3.selectAll("circle").style("stroke","none");
-					 d3.select(this).style("stroke", "red")
-									.style("stroke-width","2px");
-					 //when you click a city, the sidebar responds with the breakdown, based on radio button state
-					 var l;
-					 if( document.getElementById("country-button").checked){
-						 l = Get_By_Label(cities[selected_city][0]);
-
-					 } else if( document.getElementById("product-button").checked){
-						 l = Get_By_Label(cities[selected_city][1]);
-
-					 } else if( document.getElementById("company-button").checked){
-						 l = Get_By_Label(cities[selected_city][2]);
-
-					 }
-					 clearSidebar();
-					 makeBars(l,start_time);
-
-
-				 });
-		return selected_city;
-	};
-
 	//activate transition on circles when parent function is called
 	circle_transition(start);
 
-	//allow circle selectability and get the selected circle
-	var selected_city = select_circle(g, start);
-
-	//pass selected city name back to function caller
-	return selected_city;
+	return g;
 };
 
 
+var select_circle = function(g, start_time){
+
+	//add click functionality for the circles
+	g.on("click", function(d){
+				 //update the global variable "selected_city" in main.js (accessed using window."variable name")
+				 window.selected_city = d.circle.City;
+				 //get bar chart info tags
+				 var title = document.getElementById("chart-title");
+				 var city_text = document.createTextNode(selected_city);
+
+				 //if the chart hint is still up, get rid of it
+				 var hint = document.getElementById("chart-hint");
+				 if(document.body.contains(hint)){
+					 document.getElementById("chart-area").removeChild(hint);
+				 }
+
+				 //if there is city already being displayed, remove it
+				 if(title.childNodes.length > 1){
+				   title.removeChild(title.childNodes[1]);
+				 }
+
+				 //add the newly selected city to <p>Port: </p>
+				 title.appendChild(city_text);
 
 
+				 //when clicked, city will have a red outline, all other cities will have no outline
+				 d3.selectAll("circle").style("stroke","none");
+				 d3.select(this).style("stroke", "red")
+								.style("stroke-width","2px");
+				 //when you click a city, the sidebar responds with the breakdown, based on radio button state
+				 var l;
+				 if( document.getElementById("country-button").checked){
+					 l = Get_By_Label(cities[selected_city][0]);
+
+				 } else if( document.getElementById("product-button").checked){
+					 l = Get_By_Label(cities[selected_city][1]);
+
+				 } else if( document.getElementById("company-button").checked){
+					 l = Get_By_Label(cities[selected_city][2]);
+
+				 }
+
+				 clearSidebar();
+				 makeBars(l,start_time);
 
 
+			 });
+	// console.log("select_circle function - ", selected_city);
+	// return selected_city;
+};
 
-
-
-// var select_circle = function(g, start_time){
-// 	//add click functionality for the circles
-// 	g.on("click", function(d){
-//
-// 				 selected_city = d.circle.City;
-//
-// 				 //get bar chart info tags
-// 				 var title = document.getElementById("chart-title");
-// 				 var city_text = document.createTextNode(selected_city);
-//
-// 				 //if the chart hint is still up, get rid of it
-// 				 var hint = document.getElementById("chart-hint");
-// 				 if(document.body.contains(hint)){
-// 					 document.getElementById("chart-area").removeChild(hint);
-// 				 }
-//
-// 				 //if there is city already being displayed, remove it
-// 				 if(title.childNodes.length > 1){
-// 				   title.removeChild(title.childNodes[1]);
-// 				 }
-//
-// 				 //add the newly selected city to <p>Port: </p>
-// 				 title.appendChild(city_text);
-//
-//
-// 				 //when clicked, city will have a red outline, all other cities will have no outline
-// 				 d3.selectAll("circle").style("stroke","none");
-// 				 d3.select(this).style("stroke", "red")
-// 								.style("stroke-width","2px");
-// 				 //when you click a city, the sidebar responds with the breakdown, based on radio button state
-// 				 var l;
-// 				 if( document.getElementById("country-button").checked){
-// 					 l = Get_By_Label(cities[selected_city][0]);
-//
-// 				 } else if( document.getElementById("product-button").checked){
-// 					 l = Get_By_Label(cities[selected_city][1]);
-//
-// 				 } else if( document.getElementById("company-button").checked){
-// 					 l = Get_By_Label(cities[selected_city][2]);
-//
-// 				 }
-// 				 clearSidebar();
-// 				 makeBars(l,start_time);
-//
-//
-// 			 });
-// };
 
 var clear_circles = function(){
 	d3.selectAll("circle").remove();

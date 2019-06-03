@@ -52,9 +52,10 @@ Data.objects.forEach(function(d){
  * SET UP RADIO BUTTONS FOR COMPANY/COUNTRY/PRODUCT
  */
 
- //Get the current state of the model selection
- var selected_city;
-
+//Get the current state of the model selection
+var selected_city;
+//log selected city periodically. Need to see what's happening here
+var g;
 
 
 /*
@@ -68,15 +69,22 @@ var dispatch = d3.dispatch("statechange");
 var call_dispatch = function(index){
 	//dispatch the circle event
 	dispatch.on("statechange.circles", function(){
+		//remove previous circles
 		clear_circles();
-		selected_city = make_circles(map,index,map.getZoom());
+		//make new circles
+		g = make_circles(map,index,map.getZoom());
+		//control selectability of circles
+		//window.selected_city =
+		select_circle(g, index);
+		//make buttons from selected city
 		make_buttons(selected_city, index);
 	});
 
 	//define dispatch behavior - both called by the make_TimeSeries() function
 	dispatch.on("statechange.chart", function(){
 		clearSidebar();
-		makeBars(Get_By_Label(selected_city), index);
+		makeBars(Get_By_Label(cities[selected_city][0]), index);
+
 	});
 
 
@@ -95,9 +103,14 @@ make_TimeSeries(call_dispatch);
  * CREATE THE CIRCLES ON PAGE LOAD
  */
 
-make_circles(map, 0, map.getZoom());
+g = make_circles(map, 0, map.getZoom());
+
+//these will need to get the actual current time state
+selected_city = select_circle(g, 0);
+make_buttons(selected_city, 0);
 
 
 /*
  * MAKE BAR CHART BASED ON TIME SERIES MARKER
  */
+ setInterval(function(){ console.log(selected_city); } ,1500);
