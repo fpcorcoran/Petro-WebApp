@@ -84,31 +84,33 @@ var make_TimeSeries = function(dispatch_statechange){
 					.attr("id", "tip-box")
 					.style("opacity", 0);
 
-    //create invisible dots on the timeline - when moused over, will give the date & price in popup
-	TS_svg.selectAll(".dot")
-	      .data(data)
-		  .enter().append("circle")
-		  .attr("class","dot")
-		  .attr("cx", function(d){ return x(d.date); })
-		  .attr("cy", function(d){ return y(d.price); })
-		  .attr("r", "4px")
-		  .style("opacity",0.0)
-		  .on("mouseover", function(d){
-			  var h = document.getElementById("tip-box").offsetHeight;
-			  var f = d3.timeFormat("%b-%Y");
+	//create invisible dots on the timeline - when moused over, will give the date & price in popup
+    var dot_labels = function(){
+  	  TS_svg.selectAll(".dot")
+  			.data(data)
+  			.enter().append("circle")
+  			.attr("class","dot")
+  			.attr("cx", function(d){ return x(d.date); })
+  			.attr("cy", function(d){ return y(d.price); })
+  			.attr("r", "4px")
+  			.style("opacity",0.0)
+  			.on("mouseover", function(d){
+  				var h = document.getElementById("tip-box").offsetHeight;
+  				var f = d3.timeFormat("%b-%Y");
 
-			  tip_box.transition()
-			  		 .duration(200)
-					 .style("opacity",0.9);
-			  tip_box.html(f(d.date) + "<br/>" + d.price.toFixed(3))
-			  		 .style("left", (d3.event.pageX) + "px")
-					 .style("top", (d3.event.pageY - h) + "px");
-		  })
-		  .on("mouseout",function(d){
-			  tip_box.transition()
-			  		 .duration(200)
-					 .style("opacity", 0);
-		  });
+  				tip_box.transition()
+  					   .duration(200)
+  					   .style("opacity",0.9);
+  				tip_box.html(f(d.date) + "<br/>" + d.price.toFixed(3))
+  					   .style("left", (d3.event.pageX) + "px")
+  					   .style("top", (d3.event.pageY - h) + "px");
+  			})
+  			.on("mouseout",function(d){
+  				tip_box.transition()
+  					   .duration(200)
+  					   .style("opacity", 0);
+  			});
+  		};
 
 	//remove every other Y Axis label to avoid cluttering
 	d3.select(".y-axis").selectAll(".tick text")
@@ -190,15 +192,22 @@ var make_TimeSeries = function(dispatch_statechange){
 
 						  //delete and remake circles as the marker line moves
 						  var index = find_nearest(this.getAttribute("x1"));
+						  //propogate the index to the global variable current_timestate
+						  window.current_timestate = index;
 						  call_dispatch(index);
 
 					  })
 					  .on("end",function(d){
 						  //restart the transition using that nearest index
 						  var index = find_nearest(this.getAttribute("x1"));
+						  //propogate the index to the global variable current_timestate
+						  window.current_timestate = index;
 
 						  //marker starts moving again when drag stops
       				      marker_transition(index);
+
+						  //make dot labels again
+						  dot_labels();
 
 						  //deactivate marker
 						  d3.select(this)
@@ -207,6 +216,8 @@ var make_TimeSeries = function(dispatch_statechange){
 
 	d3.select(".marker-line")
 	  .call(drag_line);
+
+	dot_labels();
 
 
 };

@@ -17,7 +17,7 @@ var uncheck = function(buttonID){
 };
 
 //Add event listeners to the data type buttons
-var make_buttons = function(selected_city, index){
+var make_buttons = function(){
 	//Countries button interactivity
 	$("#country-button").on("click", function(){
 
@@ -26,8 +26,8 @@ var make_buttons = function(selected_city, index){
 		check("country-button");
 
 		clearSidebar();
-		//Get the selected city from the cities data object, then take the first data type (i.e. country of origin)
-		makeBars(Get_By_Label(cities[selected_city][0]), index);
+		//Get the selected city from the global variable, then take the first data type (i.e. country of origin)
+		makeBars(Get_By_Label(cities[window.selected_city][0]), window.current_timestate);
 	});
 
 	//Products button interactivity
@@ -38,8 +38,8 @@ var make_buttons = function(selected_city, index){
 		uncheck("country-button");
 
 		clearSidebar();
-		//Get the selected city from the cities data object, then take the second data type (i.e. product type)
-		makeBars(Get_By_Label(cities[selected_city][1]), index);
+		//Get the selected city from the global variable, then take the second data type (i.e. product type)
+		makeBars(Get_By_Label(cities[window.selected_city][1]), window.current_timestate);
 
 	});
 
@@ -51,8 +51,8 @@ var make_buttons = function(selected_city, index){
 		uncheck("country-button");
 
 		clearSidebar();
-		//Get the selected city from the cities data object, then take the third data type (i.e. receiving company)
-		makeBars(Get_By_Label(cities[selected_city][2]), index);
+		//Get the selected city from the global variable, then take the third data type (i.e. receiving company)
+		makeBars(Get_By_Label(cities[window.selected_city][2]), window.current_timestate);
 	});
 
 };

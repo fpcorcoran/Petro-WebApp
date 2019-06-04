@@ -4,10 +4,9 @@ GOALS:
 (repuired)
 1) The WTI crude oil index ticker should be clickable and dragable (CHECK) 
 2) Circle radii/colors should respond to the movement of the ticker (CHECK)
-3) Bar chart should respond to the movement of ticker
+3) Bar chart should respond to the movement of ticker 
 	- dispatch the creation of the bar charts from the circle selection and/or type selection
-		- maybe store time state of the model in an attribute of the type buttons on each transition? (when type is changed, get current time state from attribute of button)
-	- dispatch changes in transition of the bar charts from the ticker movement
+	- dispatch changes in transition of the bar charts from the ticker movement (CHECK)
 4) Bar chart elements should show raw data value when moused over
 (optional)
 5) Bar chart elements should re-sort themselves on each transition so so that the largest value is on top

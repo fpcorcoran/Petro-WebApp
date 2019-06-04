@@ -42,7 +42,7 @@ var make_circles = function(map, start, zoomLevel){
 	var circle_transition = function(start){
 		var T = 0;
 		for (i=start; i<Data.objects[0].circle.Imports.length; i++){
-
+			window.current_timestate = i;
 		   	 g.data(Data.objects)
 		     .transition()
 			 //duration of each transition is 1500 milliseconds
@@ -72,6 +72,7 @@ var select_circle = function(g, start_time){
 	g.on("click", function(d){
 				 //update the global variable "selected_city" in main.js (accessed using window."variable name")
 				 window.selected_city = d.circle.City;
+				 window.selected_elem = this;
 				 //get bar chart info tags
 				 var title = document.getElementById("chart-title");
 				 var city_text = document.createTextNode(selected_city);
