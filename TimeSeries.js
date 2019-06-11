@@ -1,28 +1,30 @@
+//parse dates - have to be formatted as d3 datetime in order to create a time scale
+var parse_dates = function(date){
+	//first 4 chars = YYYY, last 2 chars = MM (e.g. 1986-01)
+	var new_date = date.slice(4,) + "-" + date.slice(0,4);
+	//parse to d3 datetime object
+	var parse_time = d3.timeParse("%m-%Y");
+
+	return parse_time(new_date);
+};
+
 var make_TimeSeries = function(dispatch_statechange){
 
 	//Set up margins of graph axes - need to make room for tick labels
-	var margin = {top: 2, right: 2, bottom: 5, left: 25};
-
+	var margin = {top: 0, right: 10, bottom: 6, left: 25};
 	//Set up dimensions of the graph
 	var width = document.getElementById("bottom").offsetWidth - margin.left - margin.right;
 	var height = document.getElementById("bottom").offsetHeight - margin.top - margin.bottom;
 
-	//parse dates - have to be formatted as d3 datetime in order to create a time scale
-	var parse_dates = function(date){
-		//first 4 chars = YYYY, last 2 chars = MM (e.g. 1986-01)
-		var new_date = date.slice(4,) + "-" + date.slice(0,4);
-		//parse to d3 datetime object
-		var parse_time = d3.timeParse("%m-%Y");
-
-		return parse_time(new_date);
-	};
-
 	//set up data
 	var data = [];
 
-	//parse the dates
+	//parse the dates/prices and chop off last 6 entries to match the import data timeline
 	var dates = Object.keys(crude_prices).map(function(date){ return parse_dates(date); });
+	dates = dates.slice(0,dates.length-6);
+
 	var prices = Object.values(crude_prices);
+	prices = prices.slice(0,prices.length-6);
 
 	//append each month in the time series as a new object pair to the data variable
 	for(i=0; i<Object.keys(dates).length; i++){
@@ -33,6 +35,7 @@ var make_TimeSeries = function(dispatch_statechange){
 
 		data.push(new_entry);
 	}
+
 
 	//set up the x and y values - may need to parse dates from YYYYMM to MM-YYYY
 	var x = d3.scaleTime()
@@ -55,20 +58,21 @@ var make_TimeSeries = function(dispatch_statechange){
 				   .attr("height", height)
 				   .append("g")
 				   .attr("class","line-chart")
-				   .attr("transform", "translate(" + margin.left + "," + "-" + margin.bottom + ")");
+				   .attr("transform", "translate(" + margin.left + ","  + "-"+margin.bottom + ")");
 
 
 	//apend Y Axis
 	TS_svg.append("g")
 		  .attr("class","y-axis")
+		  .attr("id", "WTI-axis")
 		  .attr("height", height)
-		  .attr("stroke","white")
+		  .attr("transform", "translate(0,"+margin.top+")")
 		  .call(d3.axisLeft(y));
 
 	//append X Axis
 	TS_svg.append("g")
 		  .attr("class", "x-axis")
-		  .attr("transform", "translate(0,0)")
+		  .attr("transform", "translate(0,"+margin.top+")")
 		  .attr("stroke","white")
 		  .call(d3.axisBottom(x));
 
@@ -113,7 +117,7 @@ var make_TimeSeries = function(dispatch_statechange){
   		};
 
 	//remove every other Y Axis label to avoid cluttering
-	d3.select(".y-axis").selectAll(".tick text")
+	d3.select("#WTI-axis").selectAll(".tick text")
 	  .attr("stroke-width", "1px")
 	  .attr("stroke","white")
 	  .attr("class",function(d,i){
@@ -129,7 +133,6 @@ var make_TimeSeries = function(dispatch_statechange){
 		  .attr("y1",0)
 		  .attr("x2",x(dates[0]))
 		  .attr("y1",height)
-		  .attr("stroke","red")
 		  .attr("stroke-width","4px")
 		  .attr("class","marker-line")
 		  .attr("id","marker-line");
@@ -219,5 +222,154 @@ var make_TimeSeries = function(dispatch_statechange){
 
 	dot_labels();
 
+
+};
+
+var make_Import_TS = function(selected_city){
+
+	//Set up margins of graph axes - need to make room for tick labels
+	var margin = {top: 0, right: 10, bottom: 6, left: 25};
+
+	//Set up dimensions of the graph
+	var width = document.getElementById("bottom").offsetWidth - margin.left - margin.right;
+	var height = document.getElementById("bottom").offsetHeight - margin.top - margin.bottom;
+
+	//get the imports time series for the selected port
+	var import_data;
+	Data.objects.forEach(function(circle){
+		if(circle.circle.City == selected_city){
+			import_data = circle.circle.Imports;
+		}
+	});
+
+	var dates = Object.keys(crude_prices).map(function(date){ return parse_dates(date); });
+	dates = dates.slice(0,dates.length-6);
+
+	var data =[];
+
+	//append each month in the time series as a new object pair to the data variable
+	for(i=0; i<Object.keys(dates).length; i++){
+		var new_entry = {};
+
+		new_entry.date = dates[i];
+		new_entry.imports = Object.values(import_data)[i];
+
+		data.push(new_entry);
+	}
+
+
+	var imports_x = d3.scaleTime()
+			  .domain(d3.extent(dates))
+			  .range([0, width]);
+
+	var imports_scale = d3.scaleLinear()
+			  			  .domain([d3.min(import_data), d3.max(import_data)])
+			  	  		  .range([height, 0]);
+
+	var line = d3.line()
+				 .x(function(d){ return imports_x(d.date); })
+				 .y(function(d){ return imports_scale(d.imports); });
+
+	var Import_svg = d3.select(".bottom")
+	  				   .select("svg")
+					   .append("g")
+					   .attr("id","imports-chart")
+					   .attr("transform", "translate(" + margin.left + ","  + "-"+margin.bottom + ")");
+
+
+	Import_svg.append("g")
+	  .attr("class","y-axis")
+	  .attr("id", "Imports-axis")
+	  .attr("height", height)
+	  .attr("transform", "translate("+(width-margin.left)+","+margin.top+")")
+	  .call(d3.axisRight(imports_scale));
+
+
+
+    Import_svg.append("path")
+  		.data(data)
+		.attr("id","imports-line")
+  		.attr("class", "line")
+  		.attr("d", line(data));
+
+	d3.select("#Imports-axis").selectAll(".tick text")
+	  .attr("class",function(d,i){
+	        //remove
+			if(i%2 != 0){
+				d3.select(this).remove();
+			}
+		});
+
+};
+
+var make_Rain_TS = function(selected_city){
+	//Set up margins of graph axes - need to make room for tick labels
+	var margin = {top: 0, right: 10, bottom: 6, left: 25};
+
+	//Set up dimensions of the graph
+	var width = document.getElementById("bottom").offsetWidth - margin.left - margin.right;
+	var height = document.getElementById("bottom").offsetHeight - margin.top - margin.bottom;
+
+	//get the imports time series for the selected port
+	var rain_data;
+	Data.objects.forEach(function(circle){
+		if(circle.circle.City == selected_city){
+			rain_data = circle.circle.Precip;
+		}
+	});
+
+	var dates = Object.keys(crude_prices).map(function(date){ return parse_dates(date); });
+	dates = dates.slice(0,dates.length-6);
+
+	var data =[];
+
+	//append each month in the time series as a new object pair to the data variable
+	for(i=0; i<Object.keys(dates).length; i++){
+		var new_entry = {};
+
+		new_entry.date = dates[i];
+		new_entry.rain = Object.values(rain_data)[i];
+
+		data.push(new_entry);
+	}
+
+	var rain_x = d3.scaleTime()
+				   .domain(d3.extent(dates))
+				   .range([0, width]);
+
+	var rain_scale = d3.scaleLinear()
+					  .domain([d3.min(rain_data),d3.max(rain_data)])
+					  .range([height, 0]);
+
+	var line = d3.line()
+				 .x(function(d){ return rain_x(d.date); })
+				 .y(function(d){ return rain_scale(d.rain); });
+
+	var Rain_svg = d3.select(".bottom")
+					 .select("svg")
+					 .append("g")
+					 .attr("id", "rain-chart")
+					 .attr("transform", "translate(" + margin.left + ","  + "-"+margin.bottom + ")");
+
+	Rain_svg.append("g")
+	  .attr("class","y-axis")
+	  .attr("id", "Rain-axis")
+	  .attr("height", height)
+	  .attr("transform", "translate("+(width-margin.left)+","+margin.top+")")
+	  .call(d3.axisRight(rain_scale));
+
+	Rain_svg.append("path")
+    		.data(data)
+  			.attr("id","rain-line")
+    		.attr("class", "line")
+    		.attr("d", line(data));
+
+  	d3.select("#Rain-axis").selectAll(".tick text")
+  	  .attr("class",function(d,i){
+  	        //remove
+  			if(i%2 != 0){
+  				d3.select(this).remove();
+  			}
+  		});
 
 };

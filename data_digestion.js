@@ -107,7 +107,7 @@ var Get_TimeSeries = function(city_list){
 
 var Organize = function(list,cities) {
   //create a color scale from the domain of the data
-  var f = chroma.scale(['#B22222','#EEC900','#228FCF','#0000ff']).domain([0,50,150,275]);
+  var f = chroma.scale(['#d3d6d9','#0042f9','000cf9','#0000ff']).domain([0,175,225,275]);
 
   //create an object to hold the final data output from each city
   var Data = {"objects":[]};

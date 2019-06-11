@@ -112,7 +112,8 @@ var select_circle = function(g, start_time){
 				 clearSidebar();
 				 makeBars(l,start_time);
 
-
+				 make_Import_TS(window.selected_city);
+				 make_Rain_TS(window.selected_city);
 			 });
 	// console.log("select_circle function - ", selected_city);
 	// return selected_city;

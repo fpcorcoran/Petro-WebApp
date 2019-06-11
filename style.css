@@ -26,8 +26,8 @@
   height: 50px;
   width: 100%;
   background-image: linear-gradient(90deg,#a90533 47%,white 50%,#004785 53%);
-  /*background-color: #0000FF;*/
 }
+
 .sidebar {
     position: absolute;
 	top: 50px;
@@ -90,6 +90,23 @@
   border-radius: 10%;
 }
 
+.tab {
+	position: absolute;
+	top: 81%;
+	left:24%;
+	height: 5%;
+	width:76%;
+	z-index: 2;
+}
+
+.tab button {
+	z-index: 3;
+	color: black;
+}
+
+.tab button:hover {
+	color: white;
+}
 
 .bottom {
   position: absolute;
@@ -129,10 +146,77 @@
 
 .line {
   fill: none;
-  stroke: yellow;
+  stroke: #ffff00;
   opacity: 1;
   stroke-width: 2px;
   z-index: 4;
+}
+
+#marker-line {
+	stroke: #2bdb6b;
+	z-index: 10;
+}
+
+#WTI-axis text {
+	stroke: yellow;
+	color: yellow;
+}
+
+#WTI-axis path {
+	stroke: yellow;
+}
+
+#WTI-axis line {
+	stroke: yellow;
+}
+
+#Imports-axis text {
+	stroke: red;
+	color: red;
+}
+
+#Imports-axis path {
+	stroke: red;
+}
+
+#Imports-axis line {
+	stroke: red;
+}
+
+#Imports-axis {
+	z-index: 5;
+	position: absolute;
+}
+
+#imports-line {
+	z-index: 4;
+	stroke: #ff4040;
+}
+
+
+
+
+#Rain-axis text {
+	stroke: red;
+	color: red;
+}
+
+#Rain-axis path {
+	stroke: red;
+}
+
+#Rain-axis line {
+	stroke: red;
+}
+
+#Rain-axis {
+	z-index: 5;
+	position: absolute;
+}
+
+#rain-line {
+	z-index: 4;
+	stroke: #1e90ff;
 }
 
 #tip-box {
@@ -148,6 +232,11 @@
     pointer-events: none;
 	z-index: 5;
 }
+
+
+
+
+
 
 
 /*
