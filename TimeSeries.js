@@ -58,6 +58,7 @@ var make_TimeSeries = function(dispatch_statechange){
 				   .attr("height", height)
 				   .append("g")
 				   .attr("class","line-chart")
+				   .attr("id", "WTI-chart")
 				   .attr("transform", "translate(" + margin.left + ","  + "-"+margin.bottom + ")");
 
 

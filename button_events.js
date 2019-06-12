@@ -56,3 +56,27 @@ var make_buttons = function(){
 	});
 
 };
+
+
+var make_TS_buttons = function(){
+	$("#precip-btn").on("click", function(){
+		if ($("#precip-btn").hasClass("active")){
+			d3.selectAll("#rain-chart > *").remove();
+			$("#precip-btn").toggleClass("active");
+
+		} else{
+			$("#precip-btn").toggleClass("active");
+			make_Rain_TS(window.selected_city);
+		}
+	});
+
+	$("#imports-btn").on("click", function(){
+		if($("#imports-btn").hasClass("active")){
+			d3.selectAll("#imports-chart > *").remove();
+			$("#imports-btn").toggleClass("active");
+		}else{
+			$("#imports-btn").toggleClass("active");
+			make_Import_TS(window.selected_city);
+		}
+	});
+};

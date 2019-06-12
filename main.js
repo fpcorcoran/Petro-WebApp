@@ -116,3 +116,4 @@ g = make_circles(map, 0, map.getZoom());
 //these will need to get the actual current time state
 select_circle(g, 0);
 make_buttons(selected_city, current_timestate);
+make_TS_buttons();
